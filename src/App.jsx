@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Layout from './components/Layout';
+import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import Scanner from './components/Scanner';
 import Weather from './components/Weather';
@@ -30,9 +31,9 @@ function App() {
   const [user, setUser] = useState(() => {
     try {
       const saved = localStorage.getItem('agrisathi_user');
-      return saved ? JSON.parse(saved) : { name: "Ramesh Kumar", phone: "9848022338", location: "Vijayawada, Andhra Pradesh" };
+      return saved ? JSON.parse(saved) : null;
     } catch {
-      return { name: "Ramesh Kumar", phone: "9848022338", location: "Vijayawada, Andhra Pradesh" };
+      return null;
     }
   });
 
@@ -73,6 +74,18 @@ function App() {
   });
   const locale = locales[language] || locales['en'];
 
+  // 1. PUBLIC STATE: If user is not logged in, show Landing Page and protect Dashboard
+  if (!user) {
+    return (
+      <Routes>
+        <Route path="/" element={<LandingPage t={t} language={language} setLanguage={handleSetLanguage} />} />
+        <Route path="/login" element={<Login t={t} onLoginSuccess={handleLoginSuccess} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    );
+  }
+
+  // 2. AUTHENTICATED STATE: Once logged in, grant full access to Dashboard & features
   return (
     <Routes>
       <Route 
@@ -87,20 +100,21 @@ function App() {
           />
         }
       >
-        <Route index element={<Home t={t} language={language} />} />
+        <Route index element={<Home t={t} language={language} user={user} />} />
         <Route path="scanner" element={<Scanner t={t} language={language} user={user} />} />
-        <Route path="weather" element={<Weather t={t} language={language} />} />
-        <Route path="market" element={<Market t={t} language={language} />} />
-        <Route path="chat" element={<Chat t={t} language={language} locale={locale} />} />
-        <Route path="chat/:agentId" element={<Chat t={t} language={language} locale={locale} />} />
-        <Route path="schemes" element={<Schemes t={t} language={language} />} />
-        <Route path="helpline" element={<Helpline t={t} language={language} />} />
+        <Route path="weather" element={<Weather t={t} language={language} user={user} />} />
+        <Route path="market" element={<Market t={t} language={language} user={user} />} />
+        <Route path="chat" element={<Chat t={t} language={language} locale={locale} user={user} />} />
+        <Route path="chat/:agentId" element={<Chat t={t} language={language} locale={locale} user={user} />} />
+        <Route path="schemes" element={<Schemes t={t} language={language} user={user} />} />
+        <Route path="helpline" element={<Helpline t={t} language={language} user={user} />} />
         <Route path="my-crops" element={<MyCrops t={t} language={language} user={user} />} />
-        <Route path="community" element={<Community t={t} language={language} />} />
+        <Route path="community" element={<Community t={t} language={language} user={user} />} />
         <Route path="profile" element={<Profile t={t} user={user} language={language} onLogout={handleLogout} onUpdateProfile={handleLoginSuccess} />} />
         <Route path="settings" element={<Settings t={t} language={language} setLanguage={handleSetLanguage} user={user} onUpdateProfile={handleLoginSuccess} />} />
       </Route>
-      <Route path="/login" element={<Login t={t} onLoginSuccess={handleLoginSuccess} />} />
+      <Route path="/login" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
