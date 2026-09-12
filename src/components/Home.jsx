@@ -7,8 +7,9 @@ import {
   Sparkles, CheckCircle 
 } from 'lucide-react';
 
-export default function Home({ t }) {
+export default function Home({ t, language, user }) {
   const navigate = useNavigate();
+  const userName = user?.name ? user.name.split(' ')[0] : 'Farmer';
 
   const featureCards = [
     {
@@ -114,7 +115,7 @@ export default function Home({ t }) {
             marginBottom: '16px',
             border: '1px solid #bbf7d0'
           }}>
-            <Sparkles size={16} color="#16a34a" /> {t.heroTag || "AI-Powered Indian Agriculture"}
+            <Sparkles size={16} color="#16a34a" /> {`Namaste, ${userName}! 🌾 — `}{t.heroTag || "AI-Powered Indian Agriculture"}
           </div>
           <h1 className="hero-title" style={{ fontSize: '2.4rem', fontWeight: '800', lineHeight: 1.2, color: '#14532d', marginBottom: '14px' }}>
             {t.heroTitle || "Empowering Farmers, Enriching Lives"}

@@ -16,6 +16,17 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
   const [isLocatingGps, setIsLocatingGps] = useState(false);
   const navigate = useNavigate();
 
+  const displayName = user?.name || "Farmer User";
+  const displayPhone = user?.phone || user?.email || "9848022338";
+  const userInitials = displayName.split(' ').filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'FA';
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = () => setShowProfileMenu(false);
+    window.addEventListener('click', handleOutsideClick);
+    return () => window.removeEventListener('click', handleOutsideClick);
+  }, []);
+
   // Automatic GPS Geolocation Detection
   useEffect(() => {
     detectLiveGPS(false);
@@ -330,23 +341,108 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
               <div style={{ position: 'absolute', top: '7px', right: '7px', width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }} />
             </button>
 
-            {/* User Profile Pill */}
-            <div 
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowProfileMenu(!showProfileMenu);
-              }}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', background: '#f8fafc', padding: '4px 12px 4px 6px', borderRadius: '24px', border: '1px solid #e2e8f0' }}
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" 
-                alt="Ramesh Farmer" 
-                style={{ width: '30px', height: '30px', borderRadius: '50%', objectFit: 'cover' }}
-              />
-              <div style={{ textAlign: 'left', lineHeight: 1.1 }}>
-                <div style={{ fontSize: '0.85rem', fontWeight: '700', color: '#0f172a' }}>Ramesh</div>
-                <div style={{ fontSize: '0.7rem', color: '#64748b' }}>Farmer</div>
+            {/* Dynamic User Profile Pill & Dropdown */}
+            <div style={{ position: 'relative' }}>
+              <div 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowProfileMenu(!showProfileMenu);
+                }}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '8px', 
+                  cursor: 'pointer', 
+                  background: '#f8fafc', 
+                  padding: '4px 12px 4px 6px', 
+                  borderRadius: '24px', 
+                  border: '1px solid #e2e8f0',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #15803d 0%, #16a34a 100%)',
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: '800',
+                  fontSize: '0.85rem',
+                  boxShadow: '0 2px 6px rgba(22, 163, 74, 0.3)'
+                }}>
+                  {userInitials}
+                </div>
+                <div style={{ textAlign: 'left', lineHeight: 1.1 }}>
+                  <div style={{ fontSize: '0.85rem', fontWeight: '700', color: '#0f172a' }}>{displayName}</div>
+                  <div style={{ fontSize: '0.7rem', color: '#64748b' }}>{displayPhone}</div>
+                </div>
+                <ChevronDown size={14} color="#64748b" />
               </div>
+
+              {/* Profile Menu Dropdown */}
+              {showProfileMenu && (
+                <div 
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    position: 'absolute',
+                    top: '46px',
+                    right: 0,
+                    width: '240px',
+                    background: 'white',
+                    borderRadius: '16px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                    border: '1px solid #e2e8f0',
+                    padding: '12px',
+                    zIndex: 100,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '6px'
+                  }}
+                >
+                  <div style={{ padding: '8px 10px', borderBottom: '1px solid #f1f5f9' }}>
+                    <div style={{ fontWeight: '800', fontSize: '0.95rem', color: '#14532d' }}>{displayName}</div>
+                    <div style={{ fontSize: '0.78rem', color: '#64748b' }}>{displayPhone}</div>
+                    {user?.location && (
+                      <div style={{ fontSize: '0.75rem', color: '#16a34a', fontWeight: '600', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <MapPin size={12} /> {user.location}
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => { setShowProfileMenu(false); navigate('/profile'); }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', padding: '9px 12px', border: 'none', background: 'transparent', borderRadius: '8px', cursor: 'pointer', fontSize: '0.88rem', fontWeight: '600', color: '#334155', textAlign: 'left' }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <User size={16} color="#16a34a" />
+                    <span>My Farmer Profile</span>
+                  </button>
+
+                  <button
+                    onClick={() => { setShowProfileMenu(false); navigate('/settings'); }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', padding: '9px 12px', border: 'none', background: 'transparent', borderRadius: '8px', cursor: 'pointer', fontSize: '0.88rem', fontWeight: '600', color: '#334155', textAlign: 'left' }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <Settings size={16} color="#0284c7" />
+                    <span>Account Settings</span>
+                  </button>
+
+                  <div style={{ borderTop: '1px solid #f1f5f9', marginTop: '4px', paddingTop: '4px' }}>
+                    <button
+                      onClick={() => { setShowProfileMenu(false); onLogout(); }}
+                      style={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', padding: '9px 12px', border: 'none', background: '#fee2e2', borderRadius: '8px', cursor: 'pointer', fontSize: '0.88rem', fontWeight: '700', color: '#b91c1c', textAlign: 'left' }}
+                    >
+                      <LogOut size={16} color="#b91c1c" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </header>
