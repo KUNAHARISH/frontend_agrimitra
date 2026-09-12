@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Cloud, CloudRain, Sun, Wind, Droplets, AlertTriangle, 
   MapPin, CheckCircle2, ChevronRight, RefreshCw, Calendar, 
-  Compass, ArrowUpRight, ShieldCheck, Thermometer, Info, Eye
+  Compass, ArrowUpRight, ShieldCheck, Thermometer, Info, Eye,
+  ShieldAlert, Sparkles, Gauge, Activity, Lightbulb, Sprout
 } from 'lucide-react';
 import { apiFetch } from '../config';
 
@@ -25,10 +26,31 @@ const FALLBACK_STATES = {
   "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kottayam", "Kozhikode", "Palakkad", "Thrissur", "Wayanad"]
 };
 
-export default function Weather({ t, language }) {
+export default function Weather({ t, language, user }) {
   const [locations, setLocations] = useState(FALLBACK_STATES);
-  const [selectedState, setSelectedState] = useState('');
-  const [city, setCity] = useState('');
+  
+  // Resolve initial state & district from user context / GPS storage or fallback
+  const getInitialLocation = () => {
+    const loc = user?.location || localStorage.getItem('agri_gps_location') || localStorage.getItem('agrisathi_farm_location') || "Krishna, Andhra Pradesh";
+    const locLower = loc.toLowerCase();
+    
+    // Check known states
+    for (const [st, dists] of Object.entries(FALLBACK_STATES)) {
+      if (locLower.includes(st.toLowerCase())) {
+        for (const dist of dists) {
+          if (locLower.includes(dist.toLowerCase())) {
+            return { state: st, district: dist };
+          }
+        }
+        return { state: st, district: dists[0] || 'Krishna' };
+      }
+    }
+    return { state: "Andhra Pradesh", district: "Krishna" };
+  };
+
+  const initialLoc = getInitialLocation();
+  const [selectedState, setSelectedState] = useState(initialLoc.state);
+  const [city, setCity] = useState(initialLoc.district);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -48,6 +70,8 @@ export default function Weather({ t, language }) {
       }
     };
     loadGeo();
+    // Auto-fetch weather immediately on mount for initial district
+    fetchWeather(initialLoc.state, initialLoc.district, language);
   }, []);
 
   const fetchWeather = async (stateName, cityName, lang) => {
@@ -75,8 +99,14 @@ export default function Weather({ t, language }) {
   const handleStateChange = (e) => {
     const newState = e.target.value;
     setSelectedState(newState);
-    setCity('');
-    setData(null);
+    const distList = locations[newState] || FALLBACK_STATES[newState] || [];
+    const defaultDist = distList[0] || '';
+    setCity(defaultDist);
+    if (defaultDist) {
+      fetchWeather(newState, defaultDist, language);
+    } else {
+      setData(null);
+    }
   };
 
   const handleCityChange = (e) => {
