@@ -5,6 +5,7 @@ import {
   Bot, Pill, ShieldAlert, Layers, Image as ImageIcon, 
   RefreshCw, Check, Sparkles 
 } from 'lucide-react';
+import { apiFetch } from '../config';
 
 export default function Scanner({ t, language, user }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -23,10 +24,6 @@ export default function Scanner({ t, language, user }) {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        setError("File size exceeds 5MB limit. Please upload a smaller image.");
-        return;
-      }
       setSelectedFile(file);
       setPreview(URL.createObjectURL(file));
       setResult(null);
@@ -38,10 +35,6 @@ export default function Scanner({ t, language, user }) {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        setError("File size exceeds 5MB limit.");
-        return;
-      }
       setSelectedFile(file);
       setPreview(URL.createObjectURL(file));
       setResult(null);
@@ -50,57 +43,68 @@ export default function Scanner({ t, language, user }) {
   };
 
   const handleSampleClick = (sample) => {
+    setLoading(true);
+    setError(null);
     setPreview(null);
     setSelectedFile(null);
-    setError(null);
-    setLoading(true);
 
     setTimeout(() => {
-      if (sample.type === "healthy") {
-        setResult({
-          disease_name: "Healthy Plant (No Pathology Detected)",
-          crop_name: "Paddy / Tomato",
-          severity: "None",
-          confidence: "98%",
-          treatment: "Maintain standard balanced NPK nutrition (120:60:40) and avoid excessive moisture stagnation.",
-          prevention: "Continue regular crop monitoring, neem oil repellent spray at 15-day intervals, and timely weeding."
-        });
-      } else if (sample.type === "blight") {
-        setResult({
+      let sampleResult = {
+        disease_name: "Healthy Leaf (No Pathology)",
+        crop_name: "Field Crop",
+        confidence: "98%",
+        severity: "None (Healthy)",
+        affected_area: "0%",
+        treatment: "No chemical treatment required. Maintain standard irrigation and balanced N-P-K nutrient dosage.",
+        prevention: "Regularly inspect underside of leaves and avoid excess waterlogging in the root zone."
+      };
+
+      if (sample.type === 'blight') {
+        sampleResult = {
           disease_name: "Early Blight (Alternaria solani)",
-          crop_name: "Tomato / Potato",
-          severity: "Moderate",
-          confidence: "94%",
-          treatment: "Foliar spray Mancozeb 75% WP @ 2.5 g/liter or Azoxystrobin 23% SC @ 1 ml/liter of water.",
-          prevention: "Prune lower infected foliage. Ensure wide plant spacing (60 cm) for air circulation and avoid overhead sprinkler watering."
-        });
-      } else if (sample.type === "spot") {
-        setResult({
-          disease_name: "Cercospora Leaf Spot (Tikka Disease)",
-          crop_name: "Groundnut / Chillies",
-          severity: "Moderate-High",
-          confidence: "91%",
-          treatment: "Spray Chlorothalonil 75% WP @ 2 g/liter OR Hexaconazole 5% SC @ 2 ml/liter of water.",
-          prevention: "Seed treatment with Trichoderma viride @ 10 g/kg seed before sowing."
-        });
-      } else {
-        setResult({
+          crop_name: "Tomato / Solanaceae",
+          confidence: "96.4%",
+          severity: "Moderate (~25%)",
+          affected_area: "~20-25% lower foliage",
+          treatment: "Foliar spray of Mancozeb 75% WP @ 2g/L or Chlorothalonil 75% WP @ 2g/L water at 7-10 day intervals.",
+          prevention: "Adopt drip irrigation to avoid leaf wetting, practice 3-year crop rotation, and remove infected plant debris."
+        };
+      } else if (sample.type === 'spot') {
+        sampleResult = {
+          disease_name: "Cercospora Leaf Spot",
+          crop_name: "Chilli / Cotton",
+          confidence: "94.2%",
+          severity: "Mild to Moderate",
+          affected_area: "~15%",
+          treatment: "Spray Copper Oxychloride 50% WP @ 3g/L or Hexaconazole 5% EC @ 1ml/L of water.",
+          prevention: "Use certified disease-free seeds and maintain optimum plant spacing for adequate air circulation."
+        };
+      } else if (sample.type === 'mildew') {
+        sampleResult = {
           disease_name: "Powdery Mildew (Erysiphe spp.)",
-          crop_name: "Chillies / Cucurbits / Pulses",
+          crop_name: "Paddy / Cucurbits",
+          confidence: "95.1%",
           severity: "Moderate",
-          confidence: "95%",
-          treatment: "Spray Wettable Sulphur 80% WP @ 3 g/liter OR Dinocap 48% EC @ 1 ml/liter.",
-          prevention: "Apply neem formulation (10,000 ppm) preventively during warm humid mornings."
-        });
+          affected_area: "~30% canopy surface",
+          treatment: "Spray Wettable Sulphur 80% WP @ 2.5g/L or Azoxystrobin 23% SC @ 1ml/L water.",
+          prevention: "Avoid excess nitrogen fertilizers which promote dense succulent growth susceptible to mildew."
+        };
       }
+
+      setResult(sampleResult);
       setLoading(false);
-    }, 800);
+      setTimeout(() => {
+        const el = document.getElementById('scan-diagnosis-result');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }, 900);
   };
 
   const handleAnalyze = async () => {
     if (!selectedFile) return;
     setLoading(true);
     setError(null);
+    setResult(null);
 
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -111,7 +115,7 @@ export default function Scanner({ t, language, user }) {
     const timeoutId = setTimeout(() => controller.abort(), 7000);
 
     try {
-      const res = await fetch(`/api/scan?lang=${language || 'en'}`, {
+      const res = await apiFetch(`/api/scan?lang=${language || 'en'}`, {
         method: "POST",
         body: formData,
         signal: controller.signal

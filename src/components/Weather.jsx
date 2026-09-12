@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Cloud, MapPin, Droplets, Wind, AlertTriangle, Lightbulb, 
-  CloudRain, ShieldAlert, CheckCircle2, CheckCircle, Compass, Gauge, 
-  Calendar, Sprout, Activity, RefreshCw, Sparkles 
+  Cloud, CloudRain, Sun, Wind, Droplets, AlertTriangle, 
+  MapPin, CheckCircle2, ChevronRight, RefreshCw, Calendar, 
+  Compass, ArrowUpRight, ShieldCheck, Thermometer, Info, Eye
 } from 'lucide-react';
+import { apiFetch } from '../config';
 
 const FALLBACK_STATES = {
   "Andhra Pradesh": ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna", "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari", "YSR Kadapa"],
@@ -35,7 +36,7 @@ export default function Weather({ t, language }) {
   useEffect(() => {
     const loadGeo = async () => {
       try {
-        const res = await fetch('/api/states-districts');
+        const res = await apiFetch('/api/states-districts');
         if (res.ok) {
           const json = await res.json();
           if (json && Object.keys(json).length > 0) {
@@ -53,7 +54,7 @@ export default function Weather({ t, language }) {
     if (!stateName || !cityName) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/weather/${encodeURIComponent(stateName)}/${encodeURIComponent(cityName)}?lang=${lang || 'en'}`);
+      const res = await apiFetch(`/api/weather/${encodeURIComponent(stateName)}/${encodeURIComponent(cityName)}?lang=${lang || 'en'}`);
       if (res.ok) {
         const json = await res.json();
         setData(json);

@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  TrendingUp, ArrowUpRight, ArrowDownRight, Minus, 
+  TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, Minus, 
   RefreshCw, Filter, MapPin, Search, Building2, 
   Layers, ChevronDown, Award, Sparkles, ArrowUpDown, Download,
-  LayoutGrid, List, Leaf, Sprout, CheckCircle2, ShieldCheck, Tag
+  LayoutGrid, List, Leaf, Sprout, CheckCircle2, ShieldCheck, Tag,
+  Calendar, AlertCircle, Eye, ShoppingCart 
 } from 'lucide-react';
+import { apiFetch } from '../config';
 
 // Comprehensive Indian Crop Image Database
 const CROP_IMAGES = {
@@ -160,7 +162,7 @@ export default function Market({ t, language }) {
   useEffect(() => {
     const fetchGeo = async () => {
       try {
-        const res = await fetch('/api/states-districts');
+        const res = await apiFetch('/api/states-districts');
         if (res.ok) {
           const json = await res.json();
           if (json && Object.keys(json).length > 0) {
@@ -188,7 +190,7 @@ export default function Market({ t, language }) {
     try {
       const st = stateName || selectedState;
       const dist = districtName || selectedDistrict;
-      const res = await fetch(`/api/market?state=${encodeURIComponent(st)}&district=${encodeURIComponent(dist)}&lang=${language || 'en'}`);
+      const res = await apiFetch(`/api/market?state=${encodeURIComponent(st)}&district=${encodeURIComponent(dist)}&lang=${language || 'en'}`);
       if (res.ok) {
         const json = await res.json();
         if (Array.isArray(json) && json.length > 0) {

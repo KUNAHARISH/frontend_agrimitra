@@ -9,6 +9,7 @@ import {
   ShieldCheck, Award, Layers, CheckCircle2, Image as ImageIcon
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { apiFetch } from '../config';
 
 export default function Chat({ t, language }) {
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ export default function Chat({ t, language }) {
     const lowerQuery = query.toLowerCase();
     
     try {
-      const response = await fetch('/api/chat', {
+      const response = await apiFetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

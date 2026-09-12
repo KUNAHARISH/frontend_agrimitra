@@ -8,6 +8,7 @@ import {
   Thermometer, Sun, Beaker, Bug, ArrowRight
 } from 'lucide-react';
 import { ALL_CROPS_DIRECTORY } from '../data/allCropsData';
+import { apiFetch } from '../config';
 
 const INITIAL_CROPS = [
   {
@@ -104,7 +105,7 @@ export default function MyCrops({ t, language, user }) {
     let isMounted = true;
     async function loadCloudCrops() {
       try {
-        const res = await fetch(`/api/user/crops?farmer_phone=${farmerPhone}`);
+        const res = await apiFetch(`/api/user/crops?farmer_phone=${farmerPhone}`);
         if (res.ok) {
           const cloudData = await res.json();
           if (isMounted && Array.isArray(cloudData) && cloudData.length > 0) {
@@ -226,7 +227,7 @@ export default function MyCrops({ t, language, user }) {
 
     // Cloud sync in background
     try {
-      await fetch('/api/user/crops', {
+      await apiFetch('/api/user/crops', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -288,7 +289,7 @@ export default function MyCrops({ t, language, user }) {
 
       // Cloud delete
       try {
-        await fetch(`/api/user/crops/${id}?farmer_phone=${farmerPhone}`, { method: 'DELETE' });
+        await apiFetch(`/api/user/crops/${id}?farmer_phone=${farmerPhone}`, { method: 'DELETE' });
       } catch (err) {
         console.warn("Cloud delete crop fallback:", err);
       }

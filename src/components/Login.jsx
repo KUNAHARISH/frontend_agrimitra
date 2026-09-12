@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Sprout, Phone, Mail, Lock, User, ArrowRight, 
-  ShieldCheck, CheckCircle2, KeyRound, X, AlertCircle 
+  ShieldCheck, CheckCircle2, KeyRound, X, AlertCircle, Loader2 
 } from 'lucide-react';
+import { apiFetch } from '../config';
 
 export default function Login({ onLoginSuccess }) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -57,24 +58,36 @@ export default function Login({ onLoginSuccess }) {
         password: formData.password
       };
 
-      const res = await fetch(endpoint, {
+      const res = await apiFetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      const data = await res.json();
+      let data = {};
+      const rawText = await res.text();
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        data = { detail: rawText };
+      }
+
       if (res.ok && data.success) {
         const user = data.user;
         user.isLoggedIn = true;
         onLoginSuccess(user);
         navigate('/');
       } else {
-        setErrorMsg(data.error || data.detail || (isSignUp ? 'Registration failed. Mobile/email may already exist.' : 'Account not found or invalid password. Please click Sign Up if you are a new farmer.'));
+        const message = data.error || data.detail || (
+          isSignUp 
+            ? 'Registration failed. Mobile/email may already exist. Please click Login.' 
+            : 'No account found or invalid password. Please click Sign Up below if you are a new farmer.'
+        );
+        setErrorMsg(message);
       }
     } catch (err) {
       console.warn('Auth network error:', err);
-      setErrorMsg('Server network error. Please verify backend connection.');
+      setErrorMsg('Unable to connect to backend server. Please verify your connection or retry.');
     } finally {
       setLoading(false);
     }
@@ -82,12 +95,12 @@ export default function Login({ onLoginSuccess }) {
 
   const handleGoogleLogin = () => {
     const googleUser = {
-      name: 'Ramesh Kumar',
-      phone: '9848022338',
-      email: 'ramesh.farmer@gmail.com',
+      name: formData.name.trim() || 'Farmer User',
+      phone: formData.emailOrPhone.trim() || '9848022338',
+      email: formData.emailOrPhone.includes('@') ? formData.emailOrPhone.trim() : 'farmer@agrisathi.ai',
       location: 'Vijayawada, Andhra Pradesh',
       farmSize: '5 Acres',
-      mainCrops: ['Paddy', 'Tomato', 'Chilli'],
+      mainCrops: ['Paddy', 'Tomato'],
       isLoggedIn: true,
       loginTime: new Date().toISOString()
     };
@@ -107,7 +120,7 @@ export default function Login({ onLoginSuccess }) {
     setOtpValue(['', '', '', '', '', '']);
 
     try {
-      await fetch('/api/auth/send-otp', {
+      await apiFetch('/api/auth/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone })
@@ -126,12 +139,19 @@ export default function Login({ onLoginSuccess }) {
 
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/verify-otp', {
+      const res = await apiFetch('/api/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: otpPhone, otp: otpCode })
       });
-      const data = await res.json();
+      let data = {};
+      const rawText = await res.text();
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        data = { detail: rawText };
+      }
+
       if (res.ok && data.success) {
         setShowOtpModal(false);
         const user = data.user;
@@ -140,7 +160,7 @@ export default function Login({ onLoginSuccess }) {
         navigate('/');
         return;
       } else {
-        setErrorMsg(data.error || data.detail || 'Invalid OTP code. Please enter the correct 6 digits.');
+        setErrorMsg(data.error || data.detail || 'Invalid OTP code. Please enter 123456.');
       }
     } catch (e) {
       console.warn('OTP verify note:', e);
