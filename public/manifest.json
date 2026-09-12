@@ -1,0 +1,18 @@
+{
+  "short_name": "AgriMitra",
+  "name": "AgriMitra AI - Smart Farming Assistant",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#064e3b",
+  "theme_color": "#16a34a",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/"
+}
