@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { apiFetch } from './config';
 
 import Layout from './components/Layout';
 import LandingPage from './components/LandingPage';
@@ -36,6 +37,11 @@ function App() {
       return null;
     }
   });
+
+  // Background silent keepalive & warmup ping on app mount
+  useEffect(() => {
+    apiFetch('/api/health').catch(() => {});
+  }, []);
 
   const handleSetLanguage = (newLang) => {
     setLanguage(newLang);

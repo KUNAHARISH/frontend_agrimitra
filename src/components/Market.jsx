@@ -146,10 +146,30 @@ const FALLBACK_STATES = {
   "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"]
 };
 
-export default function Market({ t, language }) {
+export default function Market({ t, language, user }) {
   const [locations, setLocations] = useState(FALLBACK_STATES);
-  const [selectedState, setSelectedState] = useState("Andhra Pradesh");
-  const [selectedDistrict, setSelectedDistrict] = useState("Krishna");
+  
+  // Resolve initial state & district from user context / GPS storage or fallback
+  const getInitialLocation = () => {
+    const loc = user?.location || localStorage.getItem('agri_gps_location') || localStorage.getItem('agrisathi_farm_location') || "Krishna, Andhra Pradesh";
+    const locLower = loc.toLowerCase();
+    
+    for (const [st, dists] of Object.entries(FALLBACK_STATES)) {
+      if (locLower.includes(st.toLowerCase())) {
+        for (const dist of dists) {
+          if (locLower.includes(dist.toLowerCase())) {
+            return { state: st, district: dist };
+          }
+        }
+        return { state: st, district: dists[0] || 'Krishna' };
+      }
+    }
+    return { state: "Andhra Pradesh", district: "Krishna" };
+  };
+
+  const initialLoc = getInitialLocation();
+  const [selectedState, setSelectedState] = useState(initialLoc.state);
+  const [selectedDistrict, setSelectedDistrict] = useState(initialLoc.district);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedCommodity, setSelectedCommodity] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -158,27 +178,32 @@ export default function Market({ t, language }) {
   const [prices, setPrices] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Load all 36 Indian states & districts from backend API
+  // Load all 36 Indian states & districts from backend API & fetch prices immediately in parallel
   useEffect(() => {
-    const fetchGeo = async () => {
-      try {
-        const res = await apiFetch('/api/states-districts');
-        if (res.ok) {
-          const json = await res.json();
-          if (json && Object.keys(json).length > 0) {
-            setLocations(json);
+    const initData = async () => {
+      await Promise.all([
+        (async () => {
+          try {
+            const res = await apiFetch('/api/states-districts');
+            if (res.ok) {
+              const json = await res.json();
+              if (json && Object.keys(json).length > 0) {
+                setLocations(json);
+              }
+            }
+          } catch {
+            // Fallback to FALLBACK_STATES
           }
-        }
-      } catch {
-        // Fallback to FALLBACK_STATES
-      }
+        })(),
+        fetchMarketPrices(initialLoc.state, initialLoc.district)
+      ]);
     };
-    fetchGeo();
+    initData();
   }, []);
 
   // Update district when selectedState changes
   useEffect(() => {
-    const distList = locations[selectedState] || [];
+    const distList = locations[selectedState] || FALLBACK_STATES[selectedState] || [];
     if (distList.length > 0 && !distList.includes(selectedDistrict)) {
       setSelectedDistrict(distList[0]);
     }
@@ -547,7 +572,15 @@ export default function Market({ t, language }) {
       {/* VIEW 1: Grid Cards with Photo for Every Single Crop */}
       {viewMode === 'grid' ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', marginBottom: '28px' }}>
-          {filteredPrices.length === 0 ? (
+          {loading && prices.length === 0 ? (
+            Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="as-card" style={{ height: '260px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#ffffff' }}>
+                <div className="skeleton-line" style={{ height: '140px', width: '100%', borderRadius: '12px' }}></div>
+                <div className="skeleton-line" style={{ height: '22px', width: '65%' }}></div>
+                <div className="skeleton-line" style={{ height: '18px', width: '40%' }}></div>
+              </div>
+            ))
+          ) : filteredPrices.length === 0 ? (
             <div className="as-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '48px', color: 'var(--text-muted)' }}>
               No market prices found matching "{searchTerm}". Try selecting "All" categories or clearing your search.
             </div>
@@ -687,7 +720,15 @@ export default function Market({ t, language }) {
                 </tr>
               </thead>
               <tbody>
-                {filteredPrices.length === 0 ? (
+                {loading && prices.length === 0 ? (
+                  Array.from({ length: 6 }).map((_, i) => (
+                    <tr key={i}>
+                      <td colSpan={7} style={{ padding: '16px' }}>
+                        <div className="skeleton-line" style={{ height: '28px', width: '100%', borderRadius: '6px' }}></div>
+                      </td>
+                    </tr>
+                  ))
+                ) : filteredPrices.length === 0 ? (
                   <tr>
                     <td colSpan={7} style={{ textAlign: 'center', padding: '36px', color: 'var(--text-muted)' }}>
                       No market prices found matching "{searchTerm}". Try selecting "All" categories or clearing your search.

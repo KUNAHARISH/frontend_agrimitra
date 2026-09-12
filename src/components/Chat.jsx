@@ -98,6 +98,8 @@ export default function Chat({ t, language }) {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let assistantAnswer = '';
+      let lastRenderTime = 0;
+      let renderScheduled = false;
 
       setMessages((prev) => [...prev, { 
         role: 'assistant', 
@@ -105,9 +107,30 @@ export default function Chat({ t, language }) {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
       }]);
 
+      const flushRender = () => {
+        const currentAnswer = assistantAnswer;
+        setMessages((prev) => {
+          if (!prev.length) return prev;
+          const updated = [...prev];
+          const lastIndex = updated.length - 1;
+          if (updated[lastIndex].role === 'assistant') {
+            updated[lastIndex] = {
+              ...updated[lastIndex],
+              content: currentAnswer
+            };
+          }
+          return updated;
+        });
+        renderScheduled = false;
+        lastRenderTime = Date.now();
+      };
+
       while (true) {
         const { value, done } = await reader.read();
-        if (done) break;
+        if (done) {
+          flushRender();
+          break;
+        }
 
         const text = decoder.decode(value, { stream: true });
         const lines = text.split('\n');
@@ -118,14 +141,15 @@ export default function Chat({ t, language }) {
               const data = JSON.parse(line.replace('data: ', '').trim());
               if (data.chunk) {
                 assistantAnswer += data.chunk;
-                setMessages((prev) => {
-                  const updated = [...prev];
-                  updated[updated.length - 1] = {
-                    ...updated[updated.length - 1],
-                    content: assistantAnswer
-                  };
-                  return updated;
-                });
+                const now = Date.now();
+                if (!renderScheduled) {
+                  if (now - lastRenderTime >= 35) {
+                    flushRender();
+                  } else {
+                    renderScheduled = true;
+                    setTimeout(flushRender, 35 - (now - lastRenderTime));
+                  }
+                }
               }
             } catch {
               // Non-json chunk
