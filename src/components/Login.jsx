@@ -16,12 +16,12 @@ export default function Login({ onLoginSuccess }) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: 'Ramesh Kumar',
-    emailOrPhone: '9848022338',
-    password: 'password123',
+    name: '',
+    emailOrPhone: '',
+    password: '',
     farmLocation: 'Vijayawada, Andhra Pradesh',
     farmSize: '5 Acres',
-    mainCrops: 'Paddy, Tomato, Chilli'
+    mainCrops: 'Paddy, Tomato'
   });
 
   const [loading, setLoading] = useState(false);
@@ -30,8 +30,9 @@ export default function Login({ onLoginSuccess }) {
     e.preventDefault();
     setErrorMsg('');
 
-    if (!formData.emailOrPhone) {
-      setErrorMsg('Please enter your mobile number or email address.');
+    const cleanPhone = formData.emailOrPhone.trim();
+    if (!cleanPhone) {
+      setErrorMsg('Please enter your 10-digit mobile number or email.');
       return;
     }
 
@@ -42,17 +43,17 @@ export default function Login({ onLoginSuccess }) {
 
     setLoading(true);
     try {
-      let endpoint = isSignUp ? '/api/auth/signup' : '/api/auth/login';
-      let payload = isSignUp ? {
-        name: formData.name || 'Farmer User',
-        phone: formData.emailOrPhone.includes('@') ? '' : formData.emailOrPhone,
-        email: formData.emailOrPhone.includes('@') ? formData.emailOrPhone : '',
+      const endpoint = isSignUp ? '/api/auth/signup' : '/api/auth/login';
+      const payload = isSignUp ? {
+        name: formData.name.trim() || 'Farmer User',
+        phone: cleanPhone.includes('@') ? '' : cleanPhone,
+        email: cleanPhone.includes('@') ? cleanPhone : '',
         password: formData.password,
-        location: formData.farmLocation || 'Vijayawada, Andhra Pradesh',
+        location: formData.farmLocation || 'Andhra Pradesh',
         farm_size: formData.farmSize || '5 Acres',
-        main_crops: formData.mainCrops ? formData.mainCrops.split(',').map(s => s.trim()) : ['Paddy', 'Tomato']
+        main_crops: formData.mainCrops ? formData.mainCrops.split(',').map(s => s.trim()) : ['Paddy']
       } : {
-        identifier: formData.emailOrPhone,
+        identifier: cleanPhone,
         password: formData.password
       };
 
@@ -64,32 +65,16 @@ export default function Login({ onLoginSuccess }) {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        const user = data.user || {
-          name: formData.name || 'Ramesh Kumar',
-          phone: formData.emailOrPhone,
-          location: formData.farmLocation || 'Vijayawada, Andhra Pradesh',
-          isLoggedIn: true
-        };
+        const user = data.user;
+        user.isLoggedIn = true;
         onLoginSuccess(user);
         navigate('/');
       } else {
-        setErrorMsg(data.detail || data.error || 'Authentication failed. Please check credentials.');
+        setErrorMsg(data.error || data.detail || (isSignUp ? 'Registration failed. Mobile/email may already exist.' : 'Account not found or invalid password. Please click Sign Up if you are a new farmer.'));
       }
     } catch (err) {
-      console.warn('Auth fallback:', err);
-      // Seamless offline / demo fallback
-      const userProfile = {
-        name: formData.name || (isSignUp ? 'Farmer User' : 'Ramesh Kumar'),
-        phone: formData.emailOrPhone,
-        email: formData.emailOrPhone.includes('@') ? formData.emailOrPhone : `${formData.emailOrPhone}@farmer.agrimitra.ai`,
-        location: formData.farmLocation || 'Vijayawada, Andhra Pradesh',
-        farmSize: formData.farmSize || '5 Acres',
-        mainCrops: formData.mainCrops ? formData.mainCrops.split(',').map(s => s.trim()) : ['Paddy', 'Tomato'],
-        isLoggedIn: true,
-        loginTime: new Date().toISOString()
-      };
-      onLoginSuccess(userProfile);
-      navigate('/');
+      console.warn('Auth network error:', err);
+      setErrorMsg('Server network error. Please verify backend connection.');
     } finally {
       setLoading(false);
     }
@@ -111,11 +96,15 @@ export default function Login({ onLoginSuccess }) {
   };
 
   const handleStartOtp = async () => {
-    const phone = formData.emailOrPhone || '9848022338';
+    const phone = formData.emailOrPhone.trim();
+    if (!phone || phone.length < 10) {
+      setErrorMsg('Please enter your 10-digit mobile number above before requesting OTP.');
+      return;
+    }
     setOtpPhone(phone);
     setShowOtpModal(true);
     setOtpSent(true);
-    setOtpValue(['1', '2', '3', '4', '5', '6']);
+    setOtpValue(['', '', '', '', '', '']);
 
     try {
       await fetch('/api/auth/send-otp', {
@@ -131,7 +120,7 @@ export default function Login({ onLoginSuccess }) {
   const handleOtpVerify = async () => {
     const otpCode = otpValue.join('');
     if (otpCode.length < 6) {
-      setErrorMsg('Please enter a valid 6-digit OTP.');
+      setErrorMsg('Please enter the 6-digit OTP sent to your phone (Demo OTP: 123456).');
       return;
     }
 
@@ -140,35 +129,25 @@ export default function Login({ onLoginSuccess }) {
       const res = await fetch('/api/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: otpPhone || '9848022338', otp: otpCode })
+        body: JSON.stringify({ phone: otpPhone, otp: otpCode })
       });
       const data = await res.json();
       if (res.ok && data.success) {
         setShowOtpModal(false);
-        onLoginSuccess(data.user);
+        const user = data.user;
+        user.isLoggedIn = true;
+        onLoginSuccess(user);
         navigate('/');
         return;
+      } else {
+        setErrorMsg(data.error || data.detail || 'Invalid OTP code. Please enter the correct 6 digits.');
       }
     } catch (e) {
       console.warn('OTP verify note:', e);
+      setErrorMsg('Failed to verify OTP. Please try again.');
     } finally {
       setLoading(false);
     }
-
-    const otpUser = {
-      name: formData.name || 'Ramesh Kumar',
-      phone: otpPhone || '9848022338',
-      email: `${otpPhone}@farmer.agrimitra.ai`,
-      location: formData.farmLocation || 'Vijayawada, Andhra Pradesh',
-      farmSize: '5 Acres',
-      mainCrops: ['Paddy', 'Tomato'],
-      isLoggedIn: true,
-      loginTime: new Date().toISOString()
-    };
-
-    setShowOtpModal(false);
-    onLoginSuccess(otpUser);
-    navigate('/');
   };
 
   return (
