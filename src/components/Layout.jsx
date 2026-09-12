@@ -78,6 +78,14 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
 
             setGpsLocation(shortLoc);
             localStorage.setItem('agri_gps_location', shortLoc);
+            if (user && (!user.location || user.location === 'Vijayawada, Andhra Pradesh' || user.location === 'Andhra Pradesh')) {
+              try {
+                const updated = { ...user, location: shortLoc };
+                localStorage.setItem('agrisathi_user', JSON.stringify(updated));
+              } catch (e) {
+                console.warn("Storage update note:", e);
+              }
+            }
           } else {
             const fallback = `Lat ${latitude.toFixed(2)}°, Lon ${longitude.toFixed(2)}°`;
             setGpsLocation(fallback);
