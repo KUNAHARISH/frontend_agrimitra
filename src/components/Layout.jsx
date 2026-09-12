@@ -6,10 +6,24 @@ import {
   Bell, Globe, LogOut, LogIn, ChevronDown, CheckCircle2,
   MapPin, Sun, BookOpen, Headphones, Sparkles, Loader2, Navigation
 } from 'lucide-react';
+import NotificationCenter from './NotificationCenter';
 
 export default function Layout({ t, language, setLanguage, user, onLogout }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [unreadNotifCount, setUnreadNotifCount] = useState(() => {
+    try {
+      const saved = localStorage.getItem('agrisathi_notifications');
+      if (saved) {
+        const arr = JSON.parse(saved);
+        return arr.filter(n => n.unread).length;
+      }
+      return 3;
+    } catch {
+      return 3;
+    }
+  });
   const [gpsLocation, setGpsLocation] = useState(() => {
     return localStorage.getItem('agri_gps_location') || 'Vijayawada, AP';
   });
@@ -330,15 +344,51 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
               </select>
             </div>
 
-            {/* Notifications */}
+            {/* Notifications Button with Animated Unread Badge */}
             <button 
               className="icon-btn" 
-              title="Notifications" 
-              onClick={() => alert("You have 2 notifications: Mandi prices updated for APMC Vijayawada & 5-day rain alert issued.")}
-              style={{ position: 'relative', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+              title="Farm Notifications & Alerts" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowNotifications(true);
+              }}
+              style={{ 
+                position: 'relative', 
+                background: showNotifications ? '#dcfce7' : '#f8fafc', 
+                border: showNotifications ? '1.5px solid #16a34a' : '1px solid #e2e8f0', 
+                borderRadius: '50%', 
+                width: '38px', 
+                height: '38px', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
             >
-              <Bell size={18} color="#475569" />
-              <div style={{ position: 'absolute', top: '7px', right: '7px', width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }} />
+              <Bell size={19} color={showNotifications ? '#16a34a' : '#475569'} />
+              {unreadNotifCount > 0 && (
+                <span style={{ 
+                  position: 'absolute', 
+                  top: '-3px', 
+                  right: '-3px', 
+                  minWidth: '18px', 
+                  height: '18px', 
+                  padding: '0 4px',
+                  borderRadius: '10px', 
+                  background: '#ef4444', 
+                  color: 'white',
+                  fontSize: '0.68rem',
+                  fontWeight: '800',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 5px rgba(239, 68, 68, 0.4)',
+                  border: '2px solid #ffffff'
+                }}>
+                  {unreadNotifCount}
+                </span>
+              )}
             </button>
 
             {/* Dynamic User Profile Pill & Dropdown */}
@@ -452,6 +502,24 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
           <Outlet />
         </main>
       </div>
+
+      {/* Farm Notification Center Drawer Modal */}
+      <NotificationCenter 
+        isOpen={showNotifications} 
+        onClose={() => {
+          setShowNotifications(false);
+          try {
+            const saved = localStorage.getItem('agrisathi_notifications');
+            if (saved) {
+              const arr = JSON.parse(saved);
+              setUnreadNotifCount(arr.filter(n => n.unread).length);
+            }
+          } catch {
+            setUnreadNotifCount(0);
+          }
+        }} 
+        t={t} 
+      />
     </div>
   );
 }
