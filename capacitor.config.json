@@ -1,0 +1,17 @@
+{
+  "appId": "com.agrimitra.ai",
+  "appName": "AgriMitra AI",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#064e3b",
+      "showSpinner": false
+    }
+  }
+}
