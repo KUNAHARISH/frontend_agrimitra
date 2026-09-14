@@ -1,0 +1,123 @@
+GOVERNMENT AGRICULTURAL SCHEMES AND SUBSIDIES — INDIA 2025-2026
+
+================================================================================
+SECTION: DIRECT BENEFIT & INCOME SUPPORT SCHEMES
+================================================================================
+
+SCHEME: PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)
+TYPE: Direct Benefit Transfer (DBT)
+ELIGIBILITY: All landholding farmer families across India, subject to exclusion criteria (institutional landholders, income tax payers, constitutional post holders excluded).
+BENEFIT: ₹6,000 per year in 3 equal installments of ₹2,000 each, directly transferred to the farmer's Aadhaar-linked bank account.
+HOW TO APPLY: Register through the PM-KISAN portal (pmkisan.gov.in) or visit the nearest Common Service Centre (CSC). Documents required: Aadhaar card, bank passbook, and land ownership records. State nodal officers verify applications within 30 days.
+STATUS CHECK: Beneficiaries can check payment status on the portal using Aadhaar number or mobile number.
+
+SCHEME: RYTHU BHAROSA (Andhra Pradesh State Scheme)
+TYPE: State Investment Support
+ELIGIBILITY: All farmers in Andhra Pradesh holding agricultural land, including tenant farmers with proper documentation.
+BENEFIT: ₹13,500 per year per farmer family (₹7,500 from state + ₹6,000 from PM-KISAN). Paid in installments before each crop season to support input costs.
+HOW TO APPLY: Apply at the Village/Ward Secretariat. Documents: Aadhaar, bank details, land pattadar passbook or tenant agreement verified by Village Revenue Officer (VRO).
+
+SCHEME: RYTHU BANDHU / RYTHU BHAROSA (Telangana State Scheme)
+TYPE: State Investment Support
+ELIGIBILITY: All landholding farmers in Telangana state.
+BENEFIT: ₹10,000 to ₹15,000 per acre per year transferred directly to bank accounts before sowing season.
+HOW TO APPLY: Automatic enrollment based on land records (Dharani / State Land portal). Farmers should ensure their pattadar passbook details are updated.
+
+================================================================================
+SECTION: CROP INSURANCE & RISK MITIGATION
+================================================================================
+
+SCHEME: PMFBY (Pradhan Mantri Fasal Bima Yojana)
+TYPE: Crop Insurance
+ELIGIBILITY: All farmers (loanee and non-loanee) growing notified crops in notified areas. Voluntary for non-loanee farmers since Kharif 2020.
+BENEFIT: Insurance coverage against crop loss due to natural calamities, pests, and diseases. Premium: 2% for Kharif crops, 1.5% for Rabi crops, and 5% for commercial/horticultural crops. Balance premium paid by Central and State governments equally.
+HOW TO APPLY: Through bank branches (for loanee farmers, automatic), or through CSC/insurance company agents. Download the 'Meri Fasal Mera Byora' or 'PMFBY' mobile app. Deadline: 7 days before the cut-off date notified for each season.
+CLAIM PROCESS: Report crop loss within 72 hours through the Crop Insurance App, toll-free number 14447, or nearest bank branch.
+
+SCHEME: PM-AASHA (Pradhan Mantri Annadata Aay Sanraksan Abhiyan)
+TYPE: Price Support Scheme (PSS) & Price Deficiency Payment (PDPS)
+ELIGIBILITY: Farmers producing oilseeds, pulses, and copra selling below MSP in APMC mandis.
+BENEFIT: Direct compensation of the difference between MSP and the actual modal market sale price directly into farmer bank accounts, avoiding distress sales.
+HOW TO APPLY: Register on state procurement portals during harvest window with mandi sale bill and Aadhaar.
+
+================================================================================
+SECTION: AGRICULTURAL CREDIT & FINANCIAL ACCESS
+================================================================================
+
+SCHEME: KCC (Kisan Credit Card / Kisan Rin Portal)
+TYPE: Agricultural Credit
+ELIGIBILITY: All farmers — individual/joint borrowers who are owner cultivators, tenant farmers, sharecroppers, animal husbandry, and fisheries farmers.
+BENEFIT: Short-term crop loans up to ₹3 lakh at 4% interest rate (7% base interest with 3% prompt repayment incentive). Up to ₹1.6 lakh without collateral. Covers crop cultivation, post-harvest expenses, and farm asset maintenance.
+HOW TO APPLY: Apply online at kisanrin.gov.in or any commercial, rural, or cooperative bank.
+
+SCHEME: AGRICULTURE INFRASTRUCTURE FUND (AIF)
+TYPE: Medium-Long Term Debt Financing
+ELIGIBILITY: Farmers, Agri-entrepreneurs, FPOs, PACS, Startups, and SHGs.
+BENEFIT: Interest subvention of 3% per annum for loans up to ₹2 crore for a maximum period of 7 years. Credit guarantee coverage under CGTMSE. Supports setting up cold rooms, sorting/grading units, warehouses, silos, and primary processing centers.
+HOW TO APPLY: Submit project proposal through the AIF portal (agriinfra.dac.gov.in).
+
+================================================================================
+SECTION: SOLAR ENERGY & IRRIGATION SUBSIDIES
+================================================================================
+
+SCHEME: PM-KUSUM (Pradhan Mantri Kisan Urja Suraksha evam Utthaan Mahabhiyan)
+TYPE: Solar Pump & Grid-Connected Renewable Energy Subsidy
+ELIGIBILITY: Individual farmers, groups of farmers, cooperatives, Panchayats, and FPOs.
+BENEFIT:
+- Component B: 60% subsidy (30% Central + 30% State) for installing standalone solar agriculture pumps (up to 7.5 HP) in off-grid areas. Farmer pays only 10-40%.
+- Component C: Solarization of existing grid-connected agriculture pumps. Farmers can sell surplus solar power back to DISCOMs at fixed tariffs.
+HOW TO APPLY: Apply on state renewable energy development agency portals (e.g., NREDCAP, REDA, DISCOMs).
+
+SCHEME: PMKSY - PER DROP MORE CROP (Micro Irrigation)
+TYPE: Irrigation Subsidy
+ELIGIBILITY: All farmers installing drip and sprinkler irrigation systems.
+BENEFIT: 55% subsidy for small and marginal farmers, 45% for other farmers on the total cost of micro-irrigation systems. Additional top-up subsidies provided by several states.
+HOW TO APPLY: Apply through District Horticulture / Agriculture Department portals. Empanelled vendors handle on-site survey and installation.
+
+================================================================================
+SECTION: FARM MACHINERY & MECHANIZATION
+================================================================================
+
+SCHEME: SMAM (Sub-Mission on Agricultural Mechanization)
+TYPE: Farm Equipment & Tractor Subsidy
+ELIGIBILITY: Small, marginal, SC/ST, and women farmers given high priority.
+BENEFIT: 40% to 50% subsidy on procurement of tractors, power tillers, rotavators, seed drills, laser levellers, and harvesters. Up to 80% subsidy for establishing Custom Hiring Centres (CHC) for farm machinery rental.
+HOW TO APPLY: Register on the centralized mechanization portal: agrimachinery.nic.in.
+
+SCHEME: NAMO DRONE DIDI
+TYPE: Agriculture Drone Rental by Women SHGs
+ELIGIBILITY: Women Self Help Groups (SHGs) under Deendayal Antyodaya Yojana - NRLM.
+BENEFIT: 80% financial assistance up to ₹8 lakh for purchasing agricultural spray drones. Includes 15-day certified DGCA pilot training for liquid fertilizer and pesticide application.
+HOW TO APPLY: State Rural Livelihood Mission (SRLM) district coordinators.
+
+================================================================================
+SECTION: SUSTAINABLE & ORGANIC FARMING
+================================================================================
+
+SCHEME: PKVY (Paramparagat Krishi Vikas Yojana)
+TYPE: Organic Farming & Certification Support
+ELIGIBILITY: Farmer clusters with minimum 20 hectares / 50 acres.
+BENEFIT: ₹50,000 per hectare over 3 years. ₹31,000/ha provided directly for organic inputs (bio-fertilizers, vermicompost, botanical extracts) and ₹8,800/ha for value addition, packaging, and PGS-India organic certification.
+HOW TO APPLY: Form a cluster and register with District Agriculture Officer / Regional Council under PGS-India.
+
+SCHEME: SOIL HEALTH CARD (SHC) SCHEME
+TYPE: Soil Testing & Nutrient Management
+ELIGIBILITY: All agricultural landholders across India.
+BENEFIT: Free soil testing every 2 years analyzing 12 key parameters (N, P, K, S, Zn, Fe, Cu, Mn, Boron, pH, EC, Organic Carbon) with crop-specific fertilizer dosage recommendations.
+HOW TO APPLY: Nearest Krishi Vigyan Kendra (KVK) or Village Agriculture Extension Worker.
+
+================================================================================
+SECTION: ALLIED SECTORS (LIVESTOCK & FISHERIES)
+================================================================================
+
+SCHEME: PMMSY (Pradhan Mantri Matsya Sampada Yojana)
+TYPE: Fisheries & Aquaculture Development
+ELIGIBILITY: Fish farmers, fishers, fish workers, SHGs, and cooperatives.
+BENEFIT: 40% to 60% subsidy for construction of new fish ponds, biofloc units, recirculating aquaculture systems (RAS), refrigerated transport vehicles, and fish feed mills.
+HOW TO APPLY: Online application via pmmsy.dof.gov.in.
+
+SCHEME: NATIONAL LIVESTOCK MISSION (NLM)
+TYPE: Animal Husbandry & Fodder Development
+ELIGIBILITY: Individual farmers, FPOs, SHGs, and private entrepreneurs.
+BENEFIT: 50% capital subsidy up to ₹50 lakh for sheep, goat, pig, and poultry breed development farms and fodder seed production units.
+HOW TO APPLY: Apply via nlm.udyamimitra.in.

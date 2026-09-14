@@ -1,0 +1,128 @@
+KISAN CALL CENTRE (KCC) — OFFICIAL AGRICULTURAL EXPERT QUERIES & ADVISORY REPOSITORY
+MINISTRY OF AGRICULTURE & FARMERS WELFARE, GOVERNMENT OF INDIA
+
+================================================================================
+SECTION: PADDY (RICE) FARMER QUERIES & SCIENTIFIC RECOMMENDATIONS
+================================================================================
+
+QUERY 1: How to control Yellow Stem Borer in Paddy during vegetative and tillering stages?
+SCIENTIST ADVICE (KCC):
+- Symptom: Dead hearts during vegetative stage; white ears at reproductive stage.
+- Chemical Control: Apply Chlorantraniliprole 0.4% G @ 4 kg/acre or Cartap Hydrochloride 4% G @ 7.5-10 kg/acre at 20-25 days after transplanting. For foliar spray, use Chlorantraniliprole 18.5% SC @ 60 ml/acre or Flubendiamide 39.35% SC @ 20 ml/acre in 200 liters of water.
+- Biological Control: Install Pheromone traps @ 8 traps/acre for monitoring and 20 traps/acre for mass trapping. Release Trichogramma japonicum egg parasitoid @ 40,000/acre at weekly intervals 3-4 times starting from 30 days after transplanting.
+- Cultural Control: Clip seedling tips before transplanting to destroy egg masses. Avoid excess Nitrogen application.
+
+QUERY 2: Leaves in paddy crop turning yellow/brown from tip downwards with wavy margins. How to cure Bacterial Leaf Blight (BLB)?
+SCIENTIST ADVICE (KCC):
+- Symptom: Water-soaked lesions starting from leaf tips, turning yellow then greyish-white with wavy margins. Bacterial ooze beads in early morning.
+- Control Measures: 
+  1. Drain excess standing water from the field for 3-4 days.
+  2. Suspend Nitrogen top-dressing immediately. Apply extra Muriate of Potash (MOP) @ 15-20 kg/acre.
+  3. Spray Copper Oxychloride 50% WP @ 500 g + Plantomycin / Streptocycline @ 6 g in 200 liters of water per acre.
+  4. Repeat spray after 10-12 days if disease persists. Avoid field-to-field irrigation from infected plots.
+
+QUERY 3: How to manage Brown Plant Hopper (BPH) hopper burn in paddy?
+SCIENTIST ADVICE (KCC):
+- Symptom: Circular patches of dried/burnt crop ("hopper burn") usually in the central dense canopy.
+- Control:
+  1. Form alleyways (pathways of 30 cm) every 2-3 meters during transplanting for aeration and sunlight.
+  2. Alternate wetting and drying (AWD) irrigation; do not keep continuous stagnant water.
+  3. Spray Pymetrozine 50% WDG @ 120 g/acre or Triflumezopyrim 10% SC @ 94 ml/acre or Dinotefuran 20% SG @ 80-100 g/acre. Direct spray towards the base/stem of the plant, not top foliage.
+
+QUERY 4: What is the optimal NPK fertilizer schedule for High Yielding Variety (HYV) Paddy?
+SCIENTIST ADVICE (KCC):
+- Recommended Dosage: 120:60:40 kg N:P2O5:K2O per hectare (equivalent to ~50 kg Urea, 130 kg SSP or 75 kg DAP, and 35 kg MOP per acre).
+- Application Timetable:
+  - Basal (at transplanting): Entire Phosphorus (SSP/DAP) + 25% Nitrogen + 50% Potash.
+  - Active Tillering (20-25 DAT): 50% Nitrogen.
+  - Panicle Initiation (40-45 DAT): Remaining 25% Nitrogen + Remaining 50% Potash.
+  - Zinc Deficiency: Apply Zinc Sulphate (21%) @ 10-15 kg/acre as basal or foliar spray Zinc EDTA 12% @ 1 g/liter if chlorosis occurs.
+
+================================================================================
+SECTION: COTTON FARMER QUERIES & SCIENTIFIC RECOMMENDATIONS
+================================================================================
+
+QUERY 5: Severe Pink Bollworm infestation noticed in Bt Cotton. What is the spray schedule?
+SCIENTIST ADVICE (KCC):
+- Symptom: Rosetted flowers, premature boll opening, entry holes plugged with excreta, stained lint.
+- Integrated Pest Management (IPM):
+  1. Install Pink Bollworm Pheromone traps @ 8 traps/acre at 45 days after sowing.
+  2. Economic Threshold Level (ETL): 8 moths/trap/day for 3 consecutive days or 10% damaged rosetted flowers/green bolls.
+  3. Spray Schedule:
+     - First Spray (at flowering/ETL): Profenofos 50% EC @ 400 ml/acre or Emamectin Benzoate 5% SG @ 88 g/acre.
+     - Second Spray (boll development): Spinetoram 11.7% SC @ 170 ml/acre or Chlorantraniliprole 18.5% SC @ 60 ml/acre.
+     - Avoid synthetic pyrethroids early in the season to prevent resurgence of sucking pests.
+
+QUERY 6: Cotton leaves curling downwards and yellowing. Whiteflies and Jassids attack.
+SCIENTIST ADVICE (KCC):
+- Symptom: Leaf curl, honey dew excretion causing sooty mold, downward cupping (Jassids) or upward cupping (Thrips).
+- Advisory:
+  1. Yellow sticky traps @ 10-15 traps/acre for Whiteflies; Blue sticky traps for Thrips.
+  2. For Whitefly control: Spray Diafenthiuron 50% WP @ 250 g/acre or Pyriproxyfen 10% EC @ 400 ml/acre or Spiromesifen 22.9% SC @ 200 ml/acre.
+  3. For Jassids/Aphids: Spray Flonicamid 50% WG @ 60 g/acre or Acetamiprid 20% SP @ 40 g/acre.
+  4. Neem Oil (10,000 ppm) @ 2 ml/liter can be mixed as preventive repellent.
+
+================================================================================
+SECTION: CHILLIES & SPICES FARMER QUERIES & SCIENTIFIC RECOMMENDATIONS
+================================================================================
+
+QUERY 7: Chilli Leaf Curl and Black Thrips (Thrips parvispinus) outbreak management.
+SCIENTIST ADVICE (KCC):
+- Symptom: Flowers dropping, leaves crinkling and curling upwards, dark brown streaks on petals and small pods.
+- Action Plan:
+  1. Blue sticky traps @ 25-30 traps/acre installed at crop canopy height.
+  2. Chemical Spray Rotation (do not repeat the same chemical consecutively):
+     - Spray 1: Spinetoram 11.7% SC @ 1 ml/liter of water OR Fipronil 80% WG @ 0.3 g/liter.
+     - Spray 2 (7 days later): Cyantraniliprole 10.26% OD @ 1.2 ml/liter OR Tolfenpyrad 15% EC @ 1.5 ml/liter.
+     - Spray 3: Acetamiprid 20% SP @ 0.5 g/liter + Neem oil (10,000 ppm) @ 2 ml/liter.
+  3. Maintain optimum soil moisture; avoid water stress during flowering.
+
+QUERY 8: Dieback and Fruit Rot (Anthracnose) in Chillies.
+SCIENTIST ADVICE (KCC):
+- Symptom: Twigs wither from tip downwards, circular sunken spots with black concentric rings on fruits.
+- Control:
+  1. Seed treatment with Thiram or Captan @ 3 g/kg seed before nursery sowing.
+  2. Foliar Spray: Azoxystrobin 18.2% + Difenoconazole 11.4% SC @ 200 ml/acre OR Pyraclostrobin 20% WG @ 150-200 g/acre in 200 liters of water.
+  3. Alternative: Copper Oxychloride 50% WP @ 600 g + Mancozeb 75% WP @ 500 g/acre.
+
+================================================================================
+SECTION: WHEAT, MAIZE & PULSES FARMER QUERIES
+================================================================================
+
+QUERY 9: Fall Armyworm (Spodoptera frugiperda) damaging Maize whorls.
+SCIENTIST ADVICE (KCC):
+- Symptom: Pin-holes, large irregular windowing feeding marks on leaves, extensive sawdust-like frass inside whorls.
+- Management:
+  1. Deep summer ploughing to expose pupae to birds and sun.
+  2. Whorl Application: Apply sand + lime mixture (9:1) or Carbofuran 3G granules into leaf whorls.
+  3. Spraying: Direct spray right into the central whorl with Chlorantraniliprole 18.5% SC @ 80 ml/acre OR Emamectin Benzoate 5% SG @ 80 g/acre in 200 liters of water using knapsack sprayer with hollow cone nozzle.
+
+QUERY 10: Yellow Rust (Puccinia striiformis) in Wheat during winter.
+SCIENTIST ADVICE (KCC):
+- Symptom: Yellow powdery stripe pustules arranged linearly on leaves, turns black towards maturity.
+- Control:
+  1. Monitor crop closely during Dec-Feb when temperature is 10-18°C with morning fog/dew.
+  2. Spray Propiconazole 25% EC (Tilt) @ 200 ml in 200 liters of water per acre immediately on spotting first foci of infection.
+  3. Repeat spray after 15 days if cloudy/humid weather continues.
+
+QUERY 11: Pod Borer (Helicoverpa armigera) and Wilt in Redgram / Chickpea (Bengal Gram).
+SCIENTIST ADVICE (KCC):
+- Wilt Control: Seed treatment with Trichoderma viride @ 5-10 g/kg seed + Carbendazim @ 2 g/kg seed.
+- Pod Borer Control: Install bird perches @ 20/acre. Spray Chlorantraniliprole 18.5% SC @ 60 ml/acre or Novaluron 10% EC @ 300 ml/acre at 50% flowering stage.
+
+================================================================================
+SECTION: SOIL HEALTH, FERTILIZER & WEED MANAGEMENT
+================================================================================
+
+QUERY 12: Soil test shows high salinity (EC > 2.0 dS/m) and alkaline pH (> 8.5). How to reclaim?
+SCIENTIST ADVICE (KCC):
+- Reclamation Protocol:
+  1. Apply Agricultural Gypsum based on Gypsum Requirement (GR) test (usually 2 to 3 tonnes/acre).
+  2. Incorporate gypsum in top 10 cm soil, pond water for 10-15 days, and leach down salts through drainage trenches.
+  3. Grow green manure crops like Dhaincha (Sesbania aculeata) or Sunhemp and incorporate at 45 days into soil before flowering.
+  4. Use acid-forming fertilizers such as Ammonium Sulphate and Single Super Phosphate (SSP) instead of Urea and DAP.
+
+QUERY 13: What is the pre-emergence and post-emergence weed control schedule in Groundnut?
+SCIENTIST ADVICE (KCC):
+- Pre-emergence: Spray Pendimethalin 30% EC @ 1.0 to 1.3 liters/acre dissolved in 200 liters of water within 48 hours of sowing on moist soil.
+- Post-emergence (at 20-25 DAS): Spray Imazethapyr 10% SL @ 300 ml/acre or Quizalofop-ethyl 5% EC @ 400 ml/acre for selective broad-leaf and grassy weed control.
