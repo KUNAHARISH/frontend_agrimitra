@@ -86,7 +86,7 @@ export default function Home({ t, language, user }) {
       exit={{ opacity: 0, y: -15 }}
     >
       {/* Hero Banner with Rich Visual Showcase */}
-      <div className="hero-banner" style={{
+      <div className="home-hero hero-banner" style={{
         position: 'relative',
         overflow: 'hidden',
         background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%)',
@@ -200,7 +200,7 @@ export default function Home({ t, language, user }) {
       </div>
 
       {/* Visual Agritech Feature Spotlights */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '28px' }}>
+      <div className="home-spotlight-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '28px' }}>
         {/* Spotlight 1: AI Plant Disease */}
         <div 
           onClick={() => navigate('/scanner')}
@@ -321,7 +321,7 @@ export default function Home({ t, language, user }) {
       </div>
 
       {/* Live Highlights / Value Pillars */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginTop: '24px' }}>
+      <div className="home-value-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginTop: '24px' }}>
         <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '18px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{ width: '42px', height: '42px', borderRadius: '12px', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#16a34a' }}>
             <ShieldCheck size={22} />

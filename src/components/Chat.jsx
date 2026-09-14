@@ -255,7 +255,7 @@ export default function Chat({ t, language }) {
       />
 
       {/* Main Grid: Left Center Hub (60%) & Right Live Chatbot (40%) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
+      <div className="chat-main-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', alignItems: 'start' }}>
         
         {/* =================================================================== */}
         {/* LEFT COLUMN: AgriSathi AI Hub & Knowledge Center */}
@@ -263,7 +263,7 @@ export default function Chat({ t, language }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           
           {/* 1. Hero Banner matching reference image */}
-          <div style={{
+          <div className="chat-hero" style={{
             position: 'relative',
             borderRadius: '24px',
             overflow: 'hidden',
@@ -471,7 +471,7 @@ export default function Chat({ t, language }) {
           </div>
 
           {/* 2. Quick Actions Grid (8 Cards matching screenshot) */}
-          <div className="as-card" style={{ padding: '22px 24px' }}>
+          <div className="chat-quick-card as-card" style={{ padding: '22px 24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div>
                 <h2 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#0f172a', margin: 0 }}>Quick Actions</h2>
@@ -483,7 +483,7 @@ export default function Chat({ t, language }) {
             </div>
 
             {/* 2x4 Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px' }}>
+            <div className="chat-quick-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px' }}>
               {quickActions.map((act, idx) => {
                 const Icon = act.icon;
                 return (
@@ -518,7 +518,7 @@ export default function Chat({ t, language }) {
           </div>
 
           {/* 3. Popular Questions + Upload Plant Image (Two-Column Section) */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '20px' }}>
+          <div className="chat-lower-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '20px' }}>
             
             {/* Left: Popular Questions */}
             <div className="as-card" style={{ padding: '20px' }}>
@@ -691,7 +691,7 @@ export default function Chat({ t, language }) {
         {/* =================================================================== */}
         {/* RIGHT COLUMN: Interactive Live AI Chatbot Window */}
         {/* =================================================================== */}
-        <div className="as-card" style={{
+        <div className="chat-bot-panel as-card" style={{
           padding: '0',
           borderRadius: '24px',
           overflow: 'hidden',

@@ -195,7 +195,7 @@ export default function Settings({ t, language, setLanguage, user, onUpdateProfi
         <p className="page-subtitle">{t.settingsSubtitle || "Configure regional language, GPS farm location, cyclone notification alerts, and offline caching."}</p>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '850px' }}>
+      <div className="settings-content" style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '850px' }}>
         
         {/* Farm Location & GPS Detection Card */}
         <div className="as-card" style={{ borderLeft: '4px solid #16a34a' }}>
@@ -237,7 +237,7 @@ export default function Settings({ t, language, setLanguage, user, onUpdateProfi
           </div>
 
           {/* GPS Coordinates Live Box */}
-          <div 
+          <div className="settings-gps-box"
             style={{
               background: 'var(--bg-card-alt, #f8fafc)',
               border: '1px solid var(--border-color, #e2e8f0)',
@@ -249,7 +249,7 @@ export default function Settings({ t, language, setLanguage, user, onUpdateProfi
               gap: '12px'
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+            <div className="settings-gps-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
               <div>
                 <div style={{ fontSize: '0.8rem', fontWeight: '600', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   {t.gpsCoordinates || "GPS Coordinates"}
@@ -268,7 +268,7 @@ export default function Settings({ t, language, setLanguage, user, onUpdateProfi
               </div>
 
               {/* Action Buttons for GPS */}
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <div className="settings-gps-actions" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 <button
                   type="button"
                   className="as-btn-primary"
@@ -352,7 +352,7 @@ export default function Settings({ t, language, setLanguage, user, onUpdateProfi
             <label style={{ fontSize: '0.88rem', fontWeight: '600', color: 'var(--text-main)' }}>
               {t.manualLocationLabel || "Farm Address / Village / District"}
             </label>
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <div className="settings-location-actions" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
               <input
                 type="text"
                 className="as-input"
@@ -393,7 +393,7 @@ export default function Settings({ t, language, setLanguage, user, onUpdateProfi
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.1rem', marginBottom: '16px' }}>
             <Globe size={20} color="#16a34a" /> {t.languageLocalization || "Language & Regional Localization"}
           </h3>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+          <div className="settings-language-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
             <div>
               <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>{t.selectAppLanguage || "Select Application Language"}</div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Translates all advisories, market prices, and chatbot responses in real-time.</div>

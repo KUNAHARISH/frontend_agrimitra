@@ -12,6 +12,7 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
   const [isEditing, setIsEditing] = useState(false);
   const [isDetectingGps, setIsDetectingGps] = useState(false);
   const [gpsStatusMsg, setGpsStatusMsg] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState(() => user?.profilePhoto || '');
 
   const [coords, setCoords] = useState(() => {
     try {
@@ -41,8 +42,31 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
         farmSize: user.farmSize || user.farm_size || prev.farmSize,
         mainCrops: Array.isArray(user.mainCrops) ? user.mainCrops.join(', ') : (Array.isArray(user.main_crops) ? user.main_crops.join(', ') : (user.mainCrops || user.main_crops || prev.mainCrops))
       }));
+      setProfilePhoto(user.profilePhoto || '');
     }
   }, [user]);
+
+  const handleProfilePhotoChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !file.type.startsWith('image/')) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const photo = String(reader.result);
+      setProfilePhoto(photo);
+      const updatedUser = { ...(user || {}), profilePhoto: photo };
+      if (onUpdateProfile) onUpdateProfile(updatedUser);
+      else localStorage.setItem('agrisathi_user', JSON.stringify(updatedUser));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const clearProfilePhoto = () => {
+    setProfilePhoto('');
+    const updatedUser = { ...(user || {}), profilePhoto: '' };
+    if (onUpdateProfile) onUpdateProfile(updatedUser);
+    else localStorage.setItem('agrisathi_user', JSON.stringify(updatedUser));
+  };
 
   // If location is default or empty, trigger auto GPS detection once on mount
   useEffect(() => {
@@ -144,7 +168,8 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
       location: formData.location.trim(),
       farmSize: formData.farmSize.trim(),
       mainCrops: formData.mainCrops.split(',').map(s => s.trim()).filter(Boolean),
-      preferredLang: formData.preferredLang
+      preferredLang: formData.preferredLang,
+      profilePhoto
     };
 
     if (onUpdateProfile) {
@@ -178,10 +203,10 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
       </div>
 
       {/* Main Profile Header Card */}
-      <div className="as-card" style={{ padding: '32px', marginBottom: '24px' }}>
+      <div className="profile-header-card as-card" style={{ padding: '32px', marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <div style={{
+            <div className="profile-avatar" style={{
               width: '84px',
               height: '84px',
               borderRadius: '50%',
@@ -194,7 +219,9 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
               fontWeight: '800',
               boxShadow: '0 8px 20px rgba(22, 163, 74, 0.25)'
             }}>
-              👨‍🌾
+              {profilePhoto ? (
+                <img src={profilePhoto} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+              ) : '👨‍🌾'}
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -229,6 +256,21 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
           </div>
 
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <input
+              id="profile-photo-input"
+              type="file"
+              accept="image/*"
+              onChange={handleProfilePhotoChange}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor="profile-photo-input" className="as-btn-outline profile-photo-button" style={{ borderRadius: '12px', cursor: 'pointer' }}>
+              <User size={16} /> {profilePhoto ? 'Change Photo' : 'Upload Photo'}
+            </label>
+            {profilePhoto && (
+              <button type="button" onClick={clearProfilePhoto} className="as-btn-outline profile-photo-button" style={{ borderRadius: '12px', color: '#dc2626', borderColor: '#fca5a5' }}>
+                <X size={16} /> Remove Photo
+              </button>
+            )}
             <button 
               type="button"
               onClick={() => detectLiveGPS(true)}
@@ -303,7 +345,7 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
         </div>
 
         {isEditing ? (
-          <form onSubmit={handleSave} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+          <form className="profile-edit-form" onSubmit={handleSave} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '4px' }}>Full Name</label>
               <input 
@@ -366,7 +408,7 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
             </div>
           </form>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
+          <div className="profile-details-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
             <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '14px', border: '1px solid var(--border-color)' }}>
               <div style={{ fontSize: '0.78rem', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
                 📍 Real-Time Farm Location
@@ -407,7 +449,7 @@ export default function Profile({ t = {}, user, language, onLogout, onUpdateProf
       </div>
 
       {/* 4 Summary Stats Pills */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+      <div className="profile-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
         <div 
           onClick={() => navigate('/my-crops')}
           style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '20px', textAlign: 'center', boxShadow: 'var(--shadow-sm)', cursor: 'pointer', transition: 'all 0.2s ease' }}

@@ -166,7 +166,7 @@ export default function Community({ t, language, user }) {
       exit={{ opacity: 0, y: -15 }}
     >
       {/* Visual Farmer Community Showcase Banner */}
-      <div style={{
+      <div className="community-hero" style={{
         background: 'linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%)',
         borderRadius: '20px',
         overflow: 'hidden',
@@ -227,9 +227,9 @@ export default function Community({ t, language, user }) {
       </div>
 
       {/* Posts List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <div className="community-post-list" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
         {filteredPosts.map((p) => (
-          <div key={p.id} className="as-card" style={{ padding: '24px' }}>
+          <div key={p.id} className="community-post as-card" style={{ padding: '24px' }}>
             {/* Author Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -255,7 +255,7 @@ export default function Community({ t, language, user }) {
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '18px' }}>{p.content}</p>
 
             {/* Action Buttons: Like, Comment, Share */}
-            <div style={{ display: 'flex', gap: '20px', borderTop: '1px solid #f1f5f9', paddingTop: '14px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+              <div className="community-post-actions" style={{ display: 'flex', gap: '20px', borderTop: '1px solid #f1f5f9', paddingTop: '14px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
               <button 
                 onClick={() => handleLike(p.id)}
                 style={{ 
@@ -361,7 +361,7 @@ export default function Community({ t, language, user }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="as-card"
+                className="community-post-modal as-card"
               style={{ maxWidth: '540px', width: '100%', padding: '30px' }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -382,7 +382,7 @@ export default function Community({ t, language, user }) {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="community-post-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', marginBottom: '4px' }}>Crop Tag</label>
                     <select 

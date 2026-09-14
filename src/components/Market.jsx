@@ -320,7 +320,7 @@ export default function Market({ t, language, user }) {
       exit={{ opacity: 0, y: -15 }}
     >
       {/* Visual APMC Mandi Showcase Banner */}
-      <div style={{
+      <div className="market-hero" style={{
         background: 'linear-gradient(135deg, #7c2d12 0%, #9a3412 50%, #c2410c 100%)',
         borderRadius: '20px',
         overflow: 'hidden',
@@ -366,7 +366,7 @@ export default function Market({ t, language, user }) {
       </div>
 
       {/* Filter Toolbar for All States & Districts */}
-      <form onSubmit={handleFilterSubmit} className="as-card" style={{ padding: '22px 24px', marginBottom: '24px' }}>
+      <form onSubmit={handleFilterSubmit} className="market-filter as-card" style={{ padding: '22px 24px', marginBottom: '24px' }}>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
           
           {/* State Selector */}
@@ -530,7 +530,7 @@ export default function Market({ t, language, user }) {
       </form>
 
       {/* District Market Summary Highlight Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+      <div className="market-summary-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '24px' }}>
         <div className="as-card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{ background: '#dcfce7', padding: '12px', borderRadius: '12px' }}>
             <Building2 size={24} color="#16a34a" />
@@ -571,7 +571,7 @@ export default function Market({ t, language, user }) {
 
       {/* VIEW 1: Grid Cards with Photo for Every Single Crop */}
       {viewMode === 'grid' ? (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', marginBottom: '28px' }}>
+        <div className="market-card-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px', marginBottom: '28px' }}>
           {loading && prices.length === 0 ? (
             Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="as-card" style={{ height: '260px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#ffffff' }}>
@@ -820,7 +820,7 @@ export default function Market({ t, language, user }) {
       )}
 
       {/* Official AGMARKNET Source Footer */}
-      <div className="as-card" style={{
+      <div className="market-source as-card" style={{
         padding: '16px 24px',
         background: '#ffffff',
         border: '1px solid #e2e8f0',

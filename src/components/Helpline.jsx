@@ -41,6 +41,24 @@ export default function Helpline({ t, language }) {
       badge: "State Extension",
       color: "#7c3aed",
       bg: "#ede9fe"
+    },
+    {
+      title: "AgriSathi Customer Care",
+      number: "9014527114",
+      timing: "Customer Support & App Help",
+      desc: "Get help using the AgriSathi app, account features, crop tools, and technical support.",
+      badge: "App Support",
+      color: "#d97706",
+      bg: "#fef3c7"
+    },
+    {
+      title: "AgriSathi Customer Care",
+      number: "7337571089",
+      timing: "Customer Support & App Help",
+      desc: "Call for assistance with app access, farmer services, and connecting to the right support team.",
+      badge: "App Support",
+      color: "#0f766e",
+      bg: "#ccfbf1"
     }
   ];
 
@@ -59,7 +77,7 @@ export default function Helpline({ t, language }) {
       exit={{ opacity: 0, y: -15 }}
     >
       {/* Visual Kisan Call Centre Showcase Banner */}
-      <div style={{
+      <div className="helpline-hero" style={{
         background: 'linear-gradient(135deg, #881337 0%, #be123c 50%, #e11d48 100%)',
         borderRadius: '20px',
         overflow: 'hidden',
@@ -105,7 +123,7 @@ export default function Helpline({ t, language }) {
       </div>
 
       {/* Tabs matching screenshot */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+      <div className="helpline-tabs" style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
         <button 
           className={activeTab === 'contacts' ? 'as-btn-primary' : 'as-btn-outline'}
           onClick={() => setActiveTab('contacts')}
@@ -123,7 +141,7 @@ export default function Helpline({ t, language }) {
       </div>
 
       {activeTab === 'contacts' ? (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+        <div className="helpline-contact-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
           {contacts.map((c, idx) => (
             <div key={idx} className="as-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
@@ -164,7 +182,7 @@ export default function Helpline({ t, language }) {
           ))}
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+        <div className="helpline-center-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
           {nearbyCenters.map((center, idx) => (
             <div key={idx} className="as-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>

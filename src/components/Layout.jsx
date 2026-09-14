@@ -12,6 +12,7 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [unreadNotifCount, setUnreadNotifCount] = useState(() => {
     try {
       const saved = localStorage.getItem('agrisathi_notifications');
@@ -154,15 +155,26 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
     { code: 'ta', label: 'தமிழ்' }
   ];
 
+  const mobileNavItems = [
+    { to: '/', label: t.navHome || 'Home', icon: Home },
+    { to: '/chat', label: t.navChat || 'AI Chat', icon: Bot },
+    { to: '/scanner', label: t.navScanner || 'Scanner', icon: Sprout },
+    { to: '/weather', label: t.navWeather || 'Weather', icon: Cloud },
+    { to: '/market', label: t.navMarket || 'Market', icon: TrendingUp },
+  ];
+
   return (
-    <div className="app-layout" onClick={() => showProfileMenu && setShowProfileMenu(false)}>
+    <div className="app-layout" onClick={() => { showProfileMenu && setShowProfileMenu(false); sidebarOpen && setSidebarOpen(false); }}>
+      {/* Mobile Sidebar Overlay */}
+      <div
+        className={`sidebar-overlay ${sidebarOpen ? 'overlay-visible' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+
       {/* Left Sidebar - Clear & Readable Navigation */}
-      <aside className="app-sidebar" style={{ 
+      <aside className={`app-sidebar ${sidebarOpen ? 'sidebar-open' : ''}`} style={{ 
         display: 'flex', 
         flexDirection: 'column', 
-        height: '100vh', 
-        width: '260px',
-        minWidth: '260px',
         padding: '16px 14px', 
         background: '#ffffff', 
         borderRight: '1px solid #e2e8f0',
@@ -251,52 +263,71 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
       </aside>
 
       {/* Main App Window */}
-      <div className="app-main" style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100vh', overflowY: 'auto' }}>
+      <div className="app-main" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         {/* Top Header Bar */}
         <header className="top-header" style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '12px 28px',
           background: '#ffffff',
           borderBottom: '1px solid #e2e8f0',
           position: 'sticky',
           top: 0,
           zIndex: 40
         }}>
-          {/* Global Search Bar */}
-          <form onSubmit={handleSearchSubmit} style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            background: '#f8fafc',
-            border: '1px solid #e2e8f0',
-            borderRadius: '12px',
-            padding: '8px 16px',
-            width: '360px',
-            maxWidth: '100%'
-          }}>
-            <Search size={16} color="#94a3b8" />
-            <input 
-              type="text" 
-              placeholder={t.searchPlaceholder || "Search crops, schemes, market prices..."}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                border: 'none',
-                background: 'transparent',
-                outline: 'none',
-                fontSize: '0.88rem',
-                width: '100%',
-                color: '#1e293b'
-              }}
-            />
-          </form>
+          {/* LEFT SIDE: hamburger (mobile) + search (desktop) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0 }}>
+            {/* Hamburger – visible only on mobile via CSS */}
+            <button
+              className="hamburger-btn"
+              onClick={(e) => { e.stopPropagation(); setSidebarOpen(s => !s); }}
+              aria-label="Open menu"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            {/* Mobile title – visible only on mobile via CSS */}
+            <div className="mobile-header-title">
+              <div style={{ width: 26, height: 26, borderRadius: 7, background: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}><Sprout size={16} /></div>
+              AgriSathi
+            </div>
+            {/* Search bar – hidden on mobile via CSS */}
+            <form onSubmit={handleSearchSubmit} className="header-search" style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              background: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              borderRadius: '12px',
+              padding: '8px 16px',
+              width: '360px',
+              maxWidth: '100%'
+            }}>
+              <Search size={16} color="#94a3b8" />
+              <input 
+                type="text" 
+                placeholder={t.searchPlaceholder || "Search crops, schemes, market prices..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  outline: 'none',
+                  fontSize: '0.88rem',
+                  width: '100%',
+                  color: '#1e293b'
+                }}
+              />
+            </form>
+          </div>
 
           {/* Header Action Badges */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center' }}>
             {/* Live GPS Location Pill */}
-            <div 
+            <div className="header-gps-pill"
               onClick={() => detectLiveGPS(true)}
               title="Click to refresh live GPS location"
               style={{ 
@@ -323,13 +354,13 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
             </div>
 
             {/* Weather Pill */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: '600', color: '#334155' }}>
+            <div className="header-weather-pill" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: '600', color: '#334155' }}>
               <Sun size={18} color="#eab308" />
               <span>28°C <span style={{ fontWeight: '400', color: '#64748b', fontSize: '0.78rem' }}>Partly Cloudy</span></span>
             </div>
 
             {/* Language Switcher */}
-            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <div className="header-lang-switcher" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <select 
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
@@ -400,7 +431,7 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
             </button>
 
             {/* Dynamic User Profile Pill & Dropdown */}
-            <div style={{ position: 'relative' }}>
+            <div className="header-profile" style={{ position: 'relative' }}>
               <div 
                 onClick={(e) => {
                   e.stopPropagation();
@@ -433,7 +464,7 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
                 }}>
                   {userInitials}
                 </div>
-                <div style={{ textAlign: 'left', lineHeight: 1.1 }}>
+                <div className="user-info-text" style={{ textAlign: 'left', lineHeight: 1.1 }}>
                   <div style={{ fontSize: '0.85rem', fontWeight: '700', color: '#0f172a' }}>{displayName}</div>
                   <div style={{ fontSize: '0.7rem', color: '#64748b' }}>{displayPhone}</div>
                 </div>
@@ -506,10 +537,30 @@ export default function Layout({ t, language, setLanguage, user, onLogout }) {
         </header>
 
         {/* Active Page View */}
-        <main style={{ flex: 1, padding: '24px 28px', background: '#f8fafc' }}>
+        <main style={{ flex: 1, background: '#f8fafc' }}>
           <Outlet />
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation Bar (visible only on mobile via CSS) */}
+      <nav className="mobile-bottom-nav" aria-label="Mobile navigation">
+        {mobileNavItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = location.pathname === item.to || (item.to !== '/' && location.pathname.startsWith(item.to));
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/'}
+              className={({ isActive: a }) => `mobile-bottom-nav-item${a ? ' active' : ''}`}
+              onClick={() => setSidebarOpen(false)}
+            >
+              <Icon size={22} />
+              <span>{item.label}</span>
+            </NavLink>
+          );
+        })}
+      </nav>
 
       {/* Farm Notification Center Drawer Modal */}
       <NotificationCenter 
