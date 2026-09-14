@@ -171,7 +171,7 @@ export default function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div style={{
+    <div className="auth-page" style={{
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
@@ -179,7 +179,7 @@ export default function Login({ onLoginSuccess }) {
       background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #fef9c3 100%)',
       padding: '24px'
     }}>
-      <div style={{
+      <div className="auth-card" style={{
         maxWidth: '960px',
         width: '100%',
         background: 'white',
@@ -191,7 +191,7 @@ export default function Login({ onLoginSuccess }) {
         gridTemplateColumns: '1fr 1.15fr'
       }}>
         {/* Left Side Banner matching screenshot */}
-        <div style={{
+        <div className="auth-brand-panel" style={{
           background: 'linear-gradient(135deg, #15803d 0%, #166534 100%)',
           padding: '44px 36px',
           color: 'white',
@@ -227,7 +227,7 @@ export default function Login({ onLoginSuccess }) {
         </div>
 
         {/* Right Form Card matching screenshot */}
-        <div style={{ padding: '44px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <div className="auth-form-panel" style={{ padding: '44px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ textAlign: 'center', marginBottom: '28px' }}>
             <div style={{ width: '52px', height: '52px', borderRadius: '14px', background: '#dcfce7', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#16a34a', marginBottom: '12px', boxShadow: '0 4px 12px rgba(22, 163, 74, 0.2)' }}>
               <Sprout size={30} />
@@ -390,7 +390,7 @@ export default function Login({ onLoginSuccess }) {
                 We sent a 6-digit verification code to <strong>{otpPhone}</strong>
               </p>
 
-              <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '20px' }}>
+              <div className="otp-input-boxes" style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '20px' }}>
                 {otpValue.map((digit, i) => (
                   <input
                     key={i}

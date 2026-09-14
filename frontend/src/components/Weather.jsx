@@ -142,7 +142,7 @@ export default function Weather({ t, language, user }) {
       exit={{ opacity: 0, y: -20 }}
     >
       {/* Visual Weather & Cyclone Telemetry Showcase Banner */}
-      <div style={{
+      <div className="weather-hero" style={{
         background: 'linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%)',
         borderRadius: '20px',
         overflow: 'hidden',
@@ -188,7 +188,7 @@ export default function Weather({ t, language, user }) {
       </div>
 
       {/* District & State Selector */}
-      <div className="glass-panel" style={{ padding: '24px', marginBottom: '30px' }}>
+      <div className="weather-location-panel glass-panel" style={{ padding: '24px', marginBottom: '30px' }}>
         <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ flex: 1, minWidth: '240px' }}>
             <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '500' }}>
@@ -297,7 +297,7 @@ export default function Weather({ t, language, user }) {
             )}
 
             {/* 2. Main Weather & Rain Telemetry Overview */}
-            <div className="glass-panel" style={{ padding: '32px' }}>
+            <div className="weather-overview glass-panel" style={{ padding: '32px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px', alignItems: 'center' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px' }}>
@@ -314,7 +314,7 @@ export default function Weather({ t, language, user }) {
                 </div>
 
                 {/* Grid of Key Telemetry Cards */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '14px', flex: 1, maxWidth: '650px' }}>
+                <div className="weather-telemetry-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '14px', flex: 1, maxWidth: '650px' }}>
                   {/* Rain Amount */}
                   <div style={{ background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.25)', padding: '16px', borderRadius: '16px', textAlign: 'center' }}>
                     <CloudRain size={26} color="#3b82f6" style={{ margin: '0 auto 6px' }} />
@@ -348,11 +348,11 @@ export default function Weather({ t, language, user }) {
 
             {/* 3. Farm Actions Checklist (Rain & Cyclone Preparedness) */}
             {data.farm_actions && (
-              <div className="glass-panel" style={{ padding: '28px' }}>
+              <div className="weather-actions-panel glass-panel" style={{ padding: '28px' }}>
                 <h3 style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.2rem', marginBottom: '20px', color: 'var(--text-main)' }}>
                   <Activity size={22} color="#10b981" /> {t.farmActionPlan || 'Agricultural Rain & Weather Action Plan'}
                 </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                <div className="weather-actions-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
                   <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', padding: '16px' }}>
                     <div style={{ color: '#60a5fa', fontWeight: '600', marginBottom: '6px', fontSize: '0.95rem' }}>🚜 {t.drainageAdvise || 'Field Drainage'}</div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.4' }}>{data.farm_actions.drainage}</div>
@@ -377,7 +377,7 @@ export default function Weather({ t, language, user }) {
             )}
 
             {/* 4. AI Agro-Meteorologist Risk & Advisory */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+            <div className="weather-risk-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
               <div style={{ background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.25)', padding: '24px', borderRadius: '18px' }}>
                 <h3 style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#f87171', marginBottom: '12px', fontSize: '1.1rem' }}>
                   <AlertTriangle size={22} /> {t.cycloneAlert || 'Crop Risk Assessment'}
@@ -395,11 +395,11 @@ export default function Weather({ t, language, user }) {
 
             {/* 5. 5-Day Detailed Rain & Weather Timeline */}
             {data.forecast_days && data.forecast_days.length > 0 && (
-              <div className="glass-panel" style={{ padding: '28px' }}>
+              <div className="weather-forecast-panel glass-panel" style={{ padding: '28px' }}>
                 <h3 style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', fontSize: '1.2rem' }}>
                   <Calendar size={22} color="#60a5fa" /> {t.fiveDayForecast || '5-Day Rain & Temperature Timeline'}
                 </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
+                <div className="weather-forecast-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px' }}>
                   {data.forecast_days.map((item, idx) => (
                     <div key={idx} style={{
                       background: 'rgba(255,255,255,0.03)',

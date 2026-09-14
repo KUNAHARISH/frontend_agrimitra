@@ -117,7 +117,7 @@ export default function Schemes({ t, language }) {
       exit={{ opacity: 0, y: -15 }}
     >
       {/* Visual Government Schemes Showcase Banner */}
-      <div style={{
+      <div className="schemes-hero" style={{
         background: 'linear-gradient(135deg, #115e59 0%, #0d9488 50%, #14b8a6 100%)',
         borderRadius: '20px',
         overflow: 'hidden',
@@ -163,7 +163,7 @@ export default function Schemes({ t, language }) {
       </div>
 
       {/* Filter and Search Bar matching screenshot */}
-      <div className="as-card" style={{ padding: '20px 24px', marginBottom: '24px' }}>
+      <div className="schemes-filter as-card" style={{ padding: '20px 24px', marginBottom: '24px' }}>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ minWidth: '200px' }}>
             <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '6px' }}>
@@ -200,11 +200,11 @@ export default function Schemes({ t, language }) {
       </div>
 
       {/* Schemes Cards List matching screenshot */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div className="schemes-list" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {filtered.map((item) => (
           <div 
             key={item.id} 
-            className="as-card"
+            className="scheme-card as-card"
             style={{ 
               padding: '22px 26px', 
               display: 'flex', 
@@ -228,8 +228,7 @@ export default function Schemes({ t, language }) {
               </p>
             </div>
 
-            <button 
-              className="as-btn-outline"
+            <button className="scheme-details-button as-btn-outline"
               onClick={() => setActiveModal(item)}
             >
               {t.viewDetails || "View Details"} <ExternalLink size={14} />
@@ -285,7 +284,7 @@ export default function Schemes({ t, language }) {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+              <div className="scheme-modal-actions" style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
                 <a 
                   href={activeModal.link} 
                   target="_blank" 

@@ -61,7 +61,7 @@ export default function LandingPage({ t, language, setLanguage }) {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#1e293b', overflowX: 'hidden' }}>
+    <div className="landing-page" style={{ minHeight: '100vh', background: '#f8fafc', color: '#1e293b', overflowX: 'hidden' }}>
       
       {/* 1. TOP NAVIGATION BAR */}
       <nav style={{
@@ -73,7 +73,7 @@ export default function LandingPage({ t, language, setLanguage }) {
         borderBottom: '1px solid #e2e8f0',
         padding: '16px 24px'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="landing-nav-inner" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           
           {/* Brand Logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
@@ -87,7 +87,7 @@ export default function LandingPage({ t, language, setLanguage }) {
           </div>
 
           {/* Right Action Bar */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div className="landing-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             
             {/* Language Selector */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#f1f5f9', padding: '6px 12px', borderRadius: '10px', border: '1px solid #cbd5e1' }}>
@@ -132,13 +132,13 @@ export default function LandingPage({ t, language, setLanguage }) {
       </nav>
 
       {/* 2. HERO SECTION */}
-      <section style={{
+      <section className="landing-hero" style={{
         position: 'relative',
         padding: '60px 24px 80px',
         background: 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%)',
         borderBottom: '1px solid #e2e8f0'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '48px', alignItems: 'center' }}>
+        <div className="landing-hero-grid" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: '48px', alignItems: 'center' }}>
           
           {/* Left Hero Content */}
           <motion.div
@@ -296,8 +296,8 @@ export default function LandingPage({ t, language, setLanguage }) {
       </section>
 
       {/* 3. METRICS SHOWCASE BAR */}
-      <section style={{ background: '#064e3b', color: 'white', padding: '36px 24px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', textAlign: 'center' }}>
+      <section className="landing-metrics" style={{ background: '#064e3b', color: 'white', padding: '36px 24px' }}>
+        <div className="landing-metrics-grid" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', textAlign: 'center' }}>
           <div>
             <div style={{ fontSize: '2.2rem', fontWeight: '900', color: '#86efac' }}>500+</div>
             <div style={{ fontSize: '0.88rem', color: '#d1fae5', marginTop: '2px' }}>APMC Mandis Tracked</div>
@@ -318,7 +318,7 @@ export default function LandingPage({ t, language, setLanguage }) {
       </section>
 
       {/* 4. CORE PLATFORM MODULES */}
-      <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
+      <section className="landing-platform" style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '56px' }}>
           <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#16a34a', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Comprehensive Intelligence Suite
@@ -331,7 +331,7 @@ export default function LandingPage({ t, language, setLanguage }) {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px' }}>
+        <div className="landing-feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px' }}>
           {features.map((f, i) => (
             <motion.div
               key={i}
@@ -392,8 +392,8 @@ export default function LandingPage({ t, language, setLanguage }) {
       </section>
 
       {/* 5. CALL TO ACTION BANNER */}
-      <section style={{ padding: '0 24px 80px' }}>
-        <div style={{
+      <section className="landing-cta" style={{ padding: '0 24px 80px' }}>
+        <div className="landing-cta-inner" style={{
           maxWidth: '1200px',
           margin: '0 auto',
           background: 'linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)',
@@ -450,8 +450,8 @@ export default function LandingPage({ t, language, setLanguage }) {
       </section>
 
       {/* 6. FOOTER */}
-      <footer style={{ background: '#022c22', color: '#a7f3d0', padding: '36px 24px', borderTop: '1px solid #064e3b' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <footer className="landing-footer" style={{ background: '#022c22', color: '#a7f3d0', padding: '36px 24px', borderTop: '1px solid #064e3b' }}>
+        <div className="landing-footer-inner" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Sprout size={22} color="#4ade80" />
             <span style={{ fontWeight: '800', fontSize: '1.1rem', color: 'white' }}>AgriMitra AI</span>

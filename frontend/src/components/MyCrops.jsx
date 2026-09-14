@@ -319,7 +319,7 @@ export default function MyCrops({ t, language, user }) {
       exit={{ opacity: 0, y: -15 }}
     >
       {/* Visual Farm Management Showcase Banner */}
-      <div style={{
+      <div className="crops-hero" style={{
         background: 'linear-gradient(135deg, #065f46 0%, #047857 50%, #0f766e 100%)',
         borderRadius: '20px',
         overflow: 'hidden',
@@ -366,7 +366,7 @@ export default function MyCrops({ t, language, user }) {
       </div>
 
       {/* Main Tab Navigation Buttons */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', borderBottom: '2px solid var(--border-color, #e2e8f0)', paddingBottom: '12px' }}>
+      <div className="crops-tabs" style={{ display: 'flex', gap: '12px', marginBottom: '24px', borderBottom: '2px solid var(--border-color, #e2e8f0)', paddingBottom: '12px' }}>
         <button
           type="button"
           onClick={() => setActiveTab('library')}
@@ -416,7 +416,7 @@ export default function MyCrops({ t, language, user }) {
       {activeTab === 'library' && (
         <div>
           {/* Search & Filter Toolbar */}
-          <div className="as-card" style={{ padding: '20px 24px', marginBottom: '24px' }}>
+          <div className="crops-library-filter as-card" style={{ padding: '20px 24px', marginBottom: '24px' }}>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ position: 'relative', flex: '1 1 320px', minWidth: '240px' }}>
                 <Search size={18} color="#94a3b8" style={{ position: 'absolute', left: '14px', top: '15px' }} />
@@ -457,7 +457,7 @@ export default function MyCrops({ t, language, user }) {
           </div>
 
           {/* Crops Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: '20px' }}>
+          <div className="crops-library-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: '20px' }}>
             {filteredDirectory.map((c) => (
               <div 
                 key={c.id} 
@@ -537,7 +537,7 @@ export default function MyCrops({ t, language, user }) {
       {activeTab === 'tracker' && (
         <div>
           {/* Top Farm Summary Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+          <div className="crops-summary-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
             <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '18px 20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#dcfce7', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Sprout size={24} />
@@ -579,7 +579,7 @@ export default function MyCrops({ t, language, user }) {
               </button>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '24px' }}>
+            <div className="crops-tracker-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '24px' }}>
               {/* Left: Crop List Selection */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-secondary)' }}>Your Crop Fields</h3>
@@ -624,7 +624,7 @@ export default function MyCrops({ t, language, user }) {
 
               {/* Right: Detailed Active Crop View */}
               {activeCrop && (
-                <div className="as-card" style={{ padding: '28px' }}>
+                <div className="crops-detail-card as-card" style={{ padding: '28px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid #f1f5f9', paddingBottom: '18px', marginBottom: '20px' }}>
                     <div>
                       <div style={{ display: 'flex', gap: '8px', marginBottom: '6px' }}>
@@ -750,7 +750,7 @@ export default function MyCrops({ t, language, user }) {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="as-card"
+              className="crop-detail-modal as-card"
               style={{ maxWidth: '780px', width: '100%', maxHeight: '90vh', overflowY: 'auto', padding: '30px' }}
             >
               {/* Modal Header */}
@@ -908,7 +908,7 @@ export default function MyCrops({ t, language, user }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="as-card"
+              className="crop-form-modal as-card"
               style={{ maxWidth: '520px', width: '100%', padding: '30px' }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
@@ -1002,7 +1002,7 @@ export default function MyCrops({ t, language, user }) {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="as-card"
+              className="activity-form-modal as-card"
               style={{ maxWidth: '440px', width: '100%', padding: '26px' }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>

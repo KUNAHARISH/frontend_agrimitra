@@ -172,7 +172,7 @@ export default function Scanner({ t, language, user }) {
       exit={{ opacity: 0, y: -15 }}
     >
       {/* High-Tech AI Plant Doctor Hero Banner */}
-      <div style={{
+      <div className="scanner-hero" style={{
         background: 'linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)',
         borderRadius: '20px',
         overflow: 'hidden',
@@ -217,7 +217,7 @@ export default function Scanner({ t, language, user }) {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', marginBottom: '28px' }}>
+      <div className="scanner-workspace" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px', marginBottom: '28px' }}>
         {/* Left: Drag & Drop Box */}
         <div className="as-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div 
@@ -241,7 +241,10 @@ export default function Scanner({ t, language, user }) {
                   alt="Leaf Upload" 
                   style={{ maxHeight: '220px', maxWidth: '100%', borderRadius: '12px', objectFit: 'contain', marginBottom: '16px', border: '2px solid #86efac' }} 
                 />
-                <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>{t.scannerScanAnother || "Click or drop to replace image"}</div>
+                <div style={{ fontSize: '0.9rem', color: 'var(--text-main)', fontWeight: '700', overflowWrap: 'anywhere' }}>
+                  {selectedFile?.name || 'Image selected'}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '4px' }}>{t.scannerScanAnother || "Click or drop to replace image"}</div>
               </div>
             ) : (
               <>
@@ -256,7 +259,11 @@ export default function Scanner({ t, language, user }) {
                 </div>
                 <button 
                   type="button"
-                  className="as-btn-primary" 
+                  className="scanner-upload-button as-btn-primary"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    document.getElementById('leaf-file-input')?.click();
+                  }}
                   style={{ padding: '10px 22px', fontSize: '0.9rem' }}
                 >
                   {t.scannerUpload || "Choose an Image"}
@@ -272,11 +279,12 @@ export default function Scanner({ t, language, user }) {
             <div style={{ marginTop: '18px', display: 'flex', gap: '12px', justifyContent: 'center' }}>
               <button 
                 className="as-btn-primary" 
+                aria-label="Analyze Leaf Health"
                 onClick={handleAnalyze} 
                 disabled={loading}
                 style={{ flex: 1 }}
               >
-                {loading ? <><RefreshCw size={18} className="spin" /> {t.scannerAnalyzingCrop || "Scanning with AI..."}</> : <><Bot size={18} /> {t.scannerUpload || "Analyze Leaf Health"}</>}
+                {loading ? <><RefreshCw size={18} className="spin" /> {t.scannerAnalyzingCrop || "Scanning with AI..."}</> : <><Bot size={18} /> Analyze Leaf Health</>}
               </button>
               <button 
                 className="as-btn-outline" 
@@ -293,7 +301,7 @@ export default function Scanner({ t, language, user }) {
           <h3 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <ImageIcon size={18} color="#16a34a" /> {t.scannerSamplePills || "Sample Images (Click to Test)"}
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div className="scanner-samples-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             {sampleImages.map((sample, idx) => (
               <div
                 key={idx}
@@ -320,7 +328,7 @@ export default function Scanner({ t, language, user }) {
       </div>
 
       {/* 4 Feature Badges */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '30px' }}>
+      <div className="scanner-badges-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '30px' }}>
         <div style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: '14px', padding: '16px', textAlign: 'center' }}>
           <Bot size={24} color="#16a34a" style={{ margin: '0 auto 8px' }} />
           <div style={{ fontWeight: '700', fontSize: '0.9rem' }}>AI Powered</div>
@@ -357,7 +365,7 @@ export default function Scanner({ t, language, user }) {
             className="as-card"
             style={{ border: '1.5px solid #86efac', background: '#ffffff', boxShadow: '0 10px 30px rgba(22, 163, 74, 0.1)' }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '20px' }}>
+            <div className="scanner-result-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px', marginBottom: '20px' }}>
               <div>
                 <span className="badge badge-green" style={{ marginBottom: '6px' }}>AI Plant Pathology Report</span>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: '800', color: '#14532d' }}>{result.disease_name}</h2>
